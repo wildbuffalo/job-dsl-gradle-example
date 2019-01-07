@@ -30,7 +30,8 @@ nestedView('project-a') {
     views {
         listView('overview') {
             jobs {
-                regex(/project-A-.*/)
+                name('foo')
+                //regex(/project-A-.*/)
             }
             columns {
                 status()
