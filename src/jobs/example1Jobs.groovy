@@ -34,7 +34,7 @@ pipelineJob('QA-dealworks-app') {
 folder(basePath) {
     description 'This example shows basic folder/job creation.'
     views {
-//        listView('overview') {
+        listView('overview') {
         jobs {
 //                name('foo')
             regex(/QA-.*/)
@@ -46,7 +46,7 @@ folder(basePath) {
             lastSuccess()
             lastFailure()
         }
-//        }
+        }
 //        buildPipelineView('pipeline') {
 //            selectedJob('foo')
 //        }
