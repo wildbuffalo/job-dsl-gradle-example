@@ -1,27 +1,6 @@
 String basePath = 'abc'
 //String repo = 'sheehan/gradle-example'
 
-folder(basePath) {
-    description 'This example shows basic folder/job creation.'
-    views {
-//        listView('overview') {
-        jobs {
-//                name('foo')
-            regex(/QA-.*/)
-        }
-        columns {
-            status()
-            weather()
-            name()
-            lastSuccess()
-            lastFailure()
-        }
-//        }
-//        buildPipelineView('pipeline') {
-//            selectedJob('foo')
-//        }
-    }
-}
 
 //job("$basePath/gradle-example-build") {
 //    scm {
@@ -50,6 +29,27 @@ pipelineJob('QA-dealworks-app') {
             script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
             sandbox()
         }
+    }
+}
+folder(basePath) {
+    description 'This example shows basic folder/job creation.'
+    views {
+//        listView('overview') {
+        jobs {
+//                name('foo')
+            regex(/QA-.*/)
+        }
+        columns {
+            status()
+            weather()
+            name()
+            lastSuccess()
+            lastFailure()
+        }
+//        }
+//        buildPipelineView('pipeline') {
+//            selectedJob('foo')
+//        }
     }
 }
 
