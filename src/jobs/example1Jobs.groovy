@@ -1,9 +1,9 @@
-String basePath = 'example1'
-String repo = 'sheehan/gradle-example'
+String basePath = 'abc'
+//String repo = 'sheehan/gradle-example'
 
-//folder(basePath) {
-//    description 'This example shows basic folder/job creation.'
-//}
+folder(basePath) {
+    description 'This example shows basic folder/job creation.'
+}
 
 //job("$basePath/gradle-example-build") {
 //    scm {
@@ -35,23 +35,23 @@ pipelineJob('QA-dealworks-app') {
     }
 }
 
-nestedView('QA') {
-    views {
-//        listView('overview') {
-            jobs {
-//                name('foo')
-                regex(/QA-.*/)
-            }
-            columns {
-                status()
-                weather()
-                name()
-                lastSuccess()
-                lastFailure()
-            }
-//        }
-//        buildPipelineView('pipeline') {
-//            selectedJob('foo')
-//        }
-    }
-}
+//nestedView('QA') {
+//    views {
+////        listView('overview') {
+//            jobs {
+////                name('foo')
+//                regex(/QA-.*/)
+//            }
+//            columns {
+//                status()
+//                weather()
+//                name()
+//                lastSuccess()
+//                lastFailure()
+//            }
+////        }
+////        buildPipelineView('pipeline') {
+////            selectedJob('foo')
+////        }
+//    }
+//}
