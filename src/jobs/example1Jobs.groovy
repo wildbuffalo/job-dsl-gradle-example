@@ -26,7 +26,25 @@ job("$basePath/gradle-example-deploy") {
     }
 }
 
-
+nestedView('project-a') {
+    views {
+        listView('overview') {
+            jobs {
+                regex(/project-A-.*/)
+            }
+            columns {
+                status()
+                weather()
+                name()
+                lastSuccess()
+                lastFailure()
+            }
+        }
+        buildPipelineView('pipeline') {
+            selectedJob('foo')
+        }
+    }
+}
 pipelineJob('foo') {
     definition {
         cps {
