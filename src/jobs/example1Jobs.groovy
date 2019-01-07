@@ -37,7 +37,7 @@ pipelineJob('QA-dealworks-app') {
 
 nestedView('QA') {
     views {
-        listView('overview') {
+//        listView('overview') {
             jobs {
 //                name('foo')
                 regex(/QA-.*/)
@@ -49,7 +49,7 @@ nestedView('QA') {
                 lastSuccess()
                 lastFailure()
             }
-        }
+//        }
 //        buildPipelineView('pipeline') {
 //            selectedJob('foo')
 //        }
