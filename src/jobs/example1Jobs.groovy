@@ -26,6 +26,15 @@ job("$basePath/gradle-example-deploy") {
     }
 }
 
+pipelineJob('foo') {
+    definition {
+        cps {
+            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
+            sandbox()
+        }
+    }
+}
+
 nestedView('project-a') {
     views {
         listView('overview') {
@@ -43,14 +52,6 @@ nestedView('project-a') {
         }
         buildPipelineView('pipeline') {
             selectedJob('foo')
-        }
-    }
-}
-pipelineJob('foo') {
-    definition {
-        cps {
-            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
-            sandbox()
         }
     }
 }
