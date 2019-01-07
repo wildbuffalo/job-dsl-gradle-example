@@ -25,7 +25,24 @@ job("$basePath/gradle-example-deploy") {
         shell 'scp war file; restart...'
     }
 }
-pipelineJob('example') {
+
+def pipelines = [
+    [name: 'foo', startJob: 'foo_start'],
+    [name: 'bar', startJob: 'bar_start'],
+]
+
+nestedView('Pipelines') {
+    views {
+        pipelines.each { def pipeline ->
+            // call delegate.buildPipelineView to create a nested view
+            delegate.buildPipelineView("${pipeline.name} Pipeline") {
+                selectedJob(pipeline.startJob)
+            }
+        }
+    }
+}
+
+pipelineJob('foo') {
     definition {
         cps {
             script(readFileFromWorkspace('src/jobs/project-a-workflow.groovy'))
