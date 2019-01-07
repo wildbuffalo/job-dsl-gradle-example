@@ -1,9 +1,9 @@
 String basePath = 'example1'
 String repo = 'sheehan/gradle-example'
 
-folder(basePath) {
-    description 'This example shows basic folder/job creation.'
-}
+//folder(basePath) {
+//    description 'This example shows basic folder/job creation.'
+//}
 
 //job("$basePath/gradle-example-build") {
 //    scm {
