@@ -26,21 +26,6 @@ job("$basePath/gradle-example-deploy") {
     }
 }
 
-def pipelines = [
-    [name: 'foo', startJob: 'foo_start'],
-    [name: 'bar', startJob: 'bar_start'],
-]
-
-nestedView('Pipelines') {
-    views {
-        pipelines.each { def pipeline ->
-            // call delegate.buildPipelineView to create a nested view
-            delegate.buildPipelineView("${pipeline.name} Pipeline") {
-                selectedJob(pipeline.startJob)
-            }
-        }
-    }
-}
 
 pipelineJob('foo') {
     definition {
