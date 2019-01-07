@@ -30,7 +30,7 @@ job("$basePath/gradle-example-deploy") {
 pipelineJob('foo') {
     definition {
         cps {
-            script(readFileFromWorkspace('src/jobs/project-a-workflow.groovy'))
+            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
             sandbox()
         }
     }
