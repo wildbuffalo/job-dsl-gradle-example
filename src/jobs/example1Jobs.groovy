@@ -3,6 +3,24 @@ String basePath = 'abc'
 
 folder(basePath) {
     description 'This example shows basic folder/job creation.'
+    views {
+//        listView('overview') {
+        jobs {
+//                name('foo')
+            regex(/QA-.*/)
+        }
+        columns {
+            status()
+            weather()
+            name()
+            lastSuccess()
+            lastFailure()
+        }
+//        }
+//        buildPipelineView('pipeline') {
+//            selectedJob('foo')
+//        }
+    }
 }
 
 //job("$basePath/gradle-example-build") {
