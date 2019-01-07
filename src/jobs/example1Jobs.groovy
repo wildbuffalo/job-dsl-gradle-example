@@ -26,7 +26,7 @@ String repo = 'sheehan/gradle-example'
 //    }
 //}
 
-pipelineJob('foo') {
+pipelineJob('QA-dealworks-app') {
     definition {
         cps {
             script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
@@ -35,12 +35,12 @@ pipelineJob('foo') {
     }
 }
 
-nestedView('project-a') {
+nestedView('QA') {
     views {
         listView('overview') {
             jobs {
-                name('foo')
-                //regex(/project-A-.*/)
+//                name('foo')
+                regex(/QA-.*/)
             }
             columns {
                 status()
@@ -50,8 +50,8 @@ nestedView('project-a') {
                 lastFailure()
             }
         }
-        buildPipelineView('pipeline') {
-            selectedJob('foo')
-        }
+//        buildPipelineView('pipeline') {
+//            selectedJob('foo')
+//        }
     }
 }
