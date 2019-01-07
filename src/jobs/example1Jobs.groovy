@@ -25,3 +25,11 @@ job("$basePath/gradle-example-deploy") {
         shell 'scp war file; restart...'
     }
 }
+pipelineJob('example') {
+    definition {
+        cps {
+            script(readFileFromWorkspace('project-a-workflow.groovy'))
+            sandbox()
+        }
+    }
+}
