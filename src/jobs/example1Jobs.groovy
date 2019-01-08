@@ -38,7 +38,7 @@ listView('SDDDDD-A') {
     filterExecutors()
     jobs {
 //        name('release-projectA')
-        regex(/.*/)
+        regex(/QA-.*/)
     }
 //    jobFilters {
 //        status {
@@ -61,7 +61,7 @@ listView('SDDDDD-A') {
 buildMonitorView('project-A') {
     description('All jobs for project A')
     jobs {
-        name('release-projectA')
+//        name('release-projectA')
         regex(/.*/)
     }
 }
