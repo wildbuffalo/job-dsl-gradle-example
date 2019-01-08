@@ -27,8 +27,10 @@ pipelineJob('QA-dealworks-app') {
     definition {
         cps {
             script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
-            sandbox()
         }
+    }
+    scm {
+        github('https://github.com/wildbuffalo/getting-started-nodejs.git')
     }
 }
 
