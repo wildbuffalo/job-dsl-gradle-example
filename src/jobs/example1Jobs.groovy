@@ -31,126 +31,7 @@ pipelineJob('QA-dealworks-app') {
         }
     }
 }
-nestedView(basePath) {
-    description 'This example shows basic folder/job creation.'
-    views {
-        listView('overview') {
-        jobs {
-//                name('foo')
-            regex(/QA-.*/)
-        }
-        columns {
-            status()
-            weather()
-            name()
-            lastSuccess()
-            lastFailure()
-        }
-        }
-//        buildPipelineView('pipeline') {
-//            selectedJob('foo')
-//        }
-        listView("Build Jobs"){
-            jobs{
 
-            }
-            columns{
-                status()
-                weather()
-                name()
-                lastSuccess()
-                lastFailure()
-            }
-        }
-    }
-}
-
-//nestedView('QA') {
-//    views {
-////        listView('overview') {
-//            jobs {
-////                name('foo')
-//                regex(/QA-.*/)
-//            }
-//            columns {
-//                status()
-//                weather()
-//                name()
-//                lastSuccess()
-//                lastFailure()
-//            }
-////        }
-////        buildPipelineView('pipeline') {
-////            selectedJob('foo')
-////        }
-//    }
-//}
-//sectionedView('project-summary') {
-//    filterBuildQueue()
-//    filterExecutors()
-//    sections {
-//        listView {
-//            name('Project A')
-//            jobs {
-//                regex(/project-A-.*/)
-//            }
-//            columns {
-//                status()
-//                weather()
-//                name()
-//                lastSuccess()
-//                lastFailure()
-//            }
-//        }
-//        listView {
-//            name('Project B')
-//            jobs {
-//                regex(/project-B-.*/)
-//            }
-//            jobFilters {
-//                regex {
-//                    matchValue(RegexMatchValue.DESCRIPTION)
-//                    regex(/.*-project-B-.*/)
-//                }
-//            }
-//            columns {
-//                status()
-//                weather()
-//                name()
-//                lastSuccess()
-//                lastFailure()
-//            }
-//        }
-//    }
-//}
-dashboardView('examddple') {
-    jobs {
-        regex(/.*/)
-    }
-    columns {
-        status()
-        weather()
-        buildButton()
-    }
-    topPortlets {
-        jenkinsJobsList {
-            displayName('acme jobs')
-        }
-    }
-    leftPortlets {
-        testStatisticsChart()
-    }
-    rightPortlets {
-        testTrendChart()
-    }
-    bottomPortlets {
-        iframe {
-            effectiveUrl('http://example.com')
-        }
-        testStatisticsGrid()
-        buildStatistics()
-    }
-}
 listView('SDDDDD-A') {
     description('All unstable jobs for project A')
     filterBuildQueue()
@@ -175,20 +56,7 @@ listView('SDDDDD-A') {
     }
 }
 
-categorizedJobsView('example') {
-    jobs {
-        regex(/.*/)
-    }
-    categorizationCriteria {
-        regexGroupingRule(/QA-.*$/)
-//        regexGroupingRule(/^configuration_([^_]+).*$/)
-    }
-    columns {
-        status()
-        categorizedJob()
-        buildButton()
-    }
-}
+
 
 buildMonitorView('project-A') {
     description('All jobs for project A')
