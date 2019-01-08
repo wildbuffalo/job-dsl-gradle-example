@@ -32,7 +32,7 @@ pipelineJob('QA-dealworks-app') {
     }
 }
 
-listView('SDDDDD-A') {
+listView('QA') {
     description('All unstable jobs for project A')
     filterBuildQueue()
     filterExecutors()

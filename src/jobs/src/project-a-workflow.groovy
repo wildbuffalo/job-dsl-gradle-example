@@ -38,17 +38,17 @@ pipeline {
     }
 
     stages {
-//        stage('Checkout') {
-//            //  agent any
-//            steps {
-//                checkout scm
-//                script {
-//                    env.gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-//                    env.getRepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
-//                    sh 'printenv'
-//                }
-//            }
-//        }
+        stage('Checkout') {
+            //  agent any
+            steps {
+                git url: "https://github.com/wildbuffalo/getting-started-nodejs.git"
+                script {
+                    env.gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                    env.getRepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
+                    sh 'printenv'
+                }
+            }
+        }
         stage('Build') {
             steps {
                 script {
