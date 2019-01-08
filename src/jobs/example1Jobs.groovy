@@ -45,7 +45,6 @@ pipelineJob('QA-dealworks-app') {
             }
         }
     }
-
     triggers {
         githubPush()
     }
