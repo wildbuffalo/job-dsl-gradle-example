@@ -64,4 +64,5 @@ buildMonitorView('project-A') {
 //        name('release-projectA')
         regex(/.*/)
     }
+    recurse()
 }
