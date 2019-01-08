@@ -24,10 +24,10 @@ String basePath = 'abc'
 
 pipelineJob('QA-dealworks-app') {
     definition {
-//        cps {
-//            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
-//            sandbox()
-//        }
+        cps {
+            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
+            sandbox()
+        }
         cpsScm {
             scm {
                 git {
