@@ -26,6 +26,7 @@ pipelineJob('QA-dealworks-app') {
     definition {
         cps {
             script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
+            sandbox()
         }
         cpsScm {
             scm {
@@ -52,6 +53,7 @@ pipelineJob('build-dealworks-app') {
     definition {
         cps {
             script(readFileFromWorkspace('src/jobs/src/dealworks-app.groovy'))
+            sandbox()
         }
         cpsScm {
             scm {
