@@ -128,14 +128,14 @@ listView('project-A') {
     filterBuildQueue()
     filterExecutors()
     jobs {
-        name('release-projectA')
-        regex(/project-A-.+/)
+//        name('release-projectA')
+        regex(/.*/)
     }
-    jobFilters {
-        status {
-            status(Status.UNSTABLE)
-        }
-    }
+//    jobFilters {
+//        status {
+//            status(Status.UNSTABLE)
+//        }
+//    }
     columns {
         status()
         weather()
@@ -149,10 +149,11 @@ listView('project-A') {
 
 categorizedJobsView('example') {
     jobs {
-        regex(/configuration_.*/)
+        regex(/.*/)
     }
     categorizationCriteria {
-        regexGroupingRule(/^configuration_([^_]+).*$/)
+        regexGroupingRule(/QA-.*$/)
+//        regexGroupingRule(/^configuration_([^_]+).*$/)
     }
     columns {
         status()
@@ -160,20 +161,11 @@ categorizedJobsView('example') {
         buildButton()
     }
 }
-buildPipelineView('project-A') {
-    filterBuildQueue()
-    filterExecutors()
-    title('Project A CI Pipeline')
-    displayedBuilds(5)
-    selectedJob('project-A-compile')
-    alwaysAllowManualTrigger()
-    showPipelineParameters()
-    refreshFrequency(60)
-}
+
 buildMonitorView('project-A') {
     description('All jobs for project A')
     jobs {
         name('release-projectA')
-        regex(/project-A-.+/)
+        regex(/.*/)
     }
 }
