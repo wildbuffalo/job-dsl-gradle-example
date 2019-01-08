@@ -24,10 +24,10 @@ String basePath = 'abc'
 
 pipelineJob('QA-dealworks-app') {
     definition {
-        cps {
-            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
-            sandbox()
-        }
+//        cps {
+//            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
+//            sandbox()
+//        }
         cpsScm {
             scm {
                 git {
@@ -40,6 +40,7 @@ pipelineJob('QA-dealworks-app') {
 //                        cleanAfterCheckout()
 //                        relativeTargetDirectory('repo1')
 //                    }
+                    scriptPath('src/jobs/src/project-a-workflow.groovy')
                 }
             }
         }
@@ -51,10 +52,10 @@ pipelineJob('QA-dealworks-app') {
 
 pipelineJob('build-dealworks-app') {
     definition {
-        cps {
-            script(readFileFromWorkspace('src/jobs/src/dealworks-app.groovy'))
-            sandbox()
-        }
+//        cps {
+//            script(readFileFromWorkspace('src/jobs/src/dealworks-app.groovy'))
+//            sandbox()
+//        }
         cpsScm {
             scm {
                 git {
@@ -67,6 +68,7 @@ pipelineJob('build-dealworks-app') {
 //                        cleanAfterCheckout()
 //                        relativeTargetDirectory('repo1')
 //                    }
+                    scriptPath('src/jobs/src/dealworks-app.groovy')
                 }
             }
         }
