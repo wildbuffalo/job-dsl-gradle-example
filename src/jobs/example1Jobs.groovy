@@ -123,7 +123,35 @@ nestedView(basePath) {
 //        }
 //    }
 //}
-listView('project-A') {
+dashboardView('examddple') {
+    jobs {
+        regex(/.*/)
+    }
+    columns {
+        status()
+        weather()
+        buildButton()
+    }
+    topPortlets {
+        jenkinsJobsList {
+            displayName('acme jobs')
+        }
+    }
+    leftPortlets {
+        testStatisticsChart()
+    }
+    rightPortlets {
+        testTrendChart()
+    }
+    bottomPortlets {
+        iframe {
+            effectiveUrl('http://example.com')
+        }
+        testStatisticsGrid()
+        buildStatistics()
+    }
+}
+listView('SDDDDD-A') {
     description('All unstable jobs for project A')
     filterBuildQueue()
     filterExecutors()
