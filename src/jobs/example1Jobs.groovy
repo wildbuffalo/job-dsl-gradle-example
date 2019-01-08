@@ -31,7 +31,7 @@ pipelineJob('QA-dealworks-app') {
         }
     }
 }
-folder(basePath) {
+nestedView(basePath) {
     description 'This example shows basic folder/job creation.'
     views {
         listView('overview') {
