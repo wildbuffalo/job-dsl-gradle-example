@@ -28,10 +28,13 @@ pipelineJob('QA-dealworks-app') {
         cps {
             script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
         }
+        cpsScm {
+            scm {
+                git('https://github.com/wildbuffalo/getting-started-nodejs.git')
+            }
+        }
     }
-    properties {
-        githubProjectUrl('https://github.com/wildbuffalo/getting-started-nodejs.git')
-    }
+
     triggers {
         githubPush()
     }
