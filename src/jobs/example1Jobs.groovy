@@ -50,6 +50,18 @@ folder(basePath) {
 //        buildPipelineView('pipeline') {
 //            selectedJob('foo')
 //        }
+        listView("Build Jobs"){
+            jobs{
+
+            }
+            columns{
+                status()
+                weather()
+                name()
+                lastSuccess()
+                lastFailure()
+            }
+        }
     }
 }
 
