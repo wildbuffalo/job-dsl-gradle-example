@@ -82,6 +82,7 @@ buildMonitorView('project-A') {
 //        name('release-projectA')
         regex(/.*/)
     }
+    statusFilter(StatusFilter.ENABLED)
     filterBuildQueue()
     recurse()
 }
