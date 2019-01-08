@@ -30,7 +30,18 @@ pipelineJob('QA-dealworks-app') {
         }
         cpsScm {
             scm {
-                git('https://github.com/wildbuffalo/getting-started-nodejs.git')
+
+                git {
+                    remote {
+                        name('master')
+                        url('https://github.com/wildbuffalo/getting-started-nodejs.git')
+                        credentials('6331db84-0ca0-4396-a946-afa1e804158f')
+                    }
+//                    extensions {
+//                        cleanAfterCheckout()
+//                        relativeTargetDirectory('repo1')
+//                    }
+                }
             }
         }
     }
