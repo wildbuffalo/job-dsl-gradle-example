@@ -29,6 +29,9 @@ pipelineJob('QA-dealworks-app') {
             script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
         }
     }
+    properties {
+        githubProjectUrl('https://github.com/wildbuffalo/getting-started-nodejs.git')
+    }
     triggers {
         githubPush()
     }
