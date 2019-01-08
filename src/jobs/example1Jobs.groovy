@@ -35,7 +35,34 @@ pipelineJob('QA-dealworks-app') {
                     remote {
                         branch('master')
                         url('https://github.com/wildbuffalo/getting-started-nodejs.git')
-                        credentials('6331db84-0ca0-4396-a946-afa1e804158f')
+//                        credentials('6331db84-0ca0-4396-a946-afa1e804158f')
+                    }
+//                    extensions {
+//                        cleanAfterCheckout()
+//                        relativeTargetDirectory('repo1')
+//                    }
+                }
+            }
+        }
+    }
+    triggers {
+        githubPush()
+    }
+}
+
+pipelineJob('build-dealworks-app') {
+    definition {
+        cps {
+            script(readFileFromWorkspace('src/jobs/src/dealworks-app.groovy'))
+        }
+        cpsScm {
+            scm {
+
+                git {
+                    remote {
+                        branch('master')
+                        url('https://github.com/wildbuffalo/dealworks-app.git')
+//                        credentials('6331db84-0ca0-4396-a946-afa1e804158f')
                     }
 //                    extensions {
 //                        cleanAfterCheckout()

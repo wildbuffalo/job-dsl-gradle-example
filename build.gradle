@@ -27,6 +27,7 @@ configurations.all*.exclude group: 'xalan'
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.11'
+
     compile "org.jenkins-ci.plugins:job-dsl-core:${jobDslVersion}"
     compile 'org.kohsuke:github-api:1.93'
 
