@@ -40,9 +40,11 @@ pipelineJob('QA-dealworks-app') {
                         cleanAfterCheckout()
 //                        relativeTargetDirectory('repo1')
                     }
-                    scriptPath('src/jobs/src/project-a-workflow.groovy')
+//                    scriptPath('src/jobs/src/project-a-workflow.groovy')
                 }
+                github('wildbuffalo/getting-stated-nodejs')
             }
+            scriptPath('src/jobs/src/project-a-workflow.groovy')
         }
     }
     triggers {
