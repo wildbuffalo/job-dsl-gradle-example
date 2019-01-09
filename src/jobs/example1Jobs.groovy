@@ -1,26 +1,13 @@
 String basePath = 'abc'
 //String repo = 'sheehan/gradle-example'
 
+folder(basePath) {
+    description 'This example shows how to create a set of jobs for each github branch, each in its own folder.'
+}
+
 job("QA-avb") {
-    authenticationToken("mytoken")
-    multiscm {
-        git {
-            remote {
-                github('wildbuffalo/job-dsl-gradle-example')
-            }
-            extensions {
-                relativeTargetDirectory('jenkins')
-            }
-        }
-        git {
-            remote {
-                github('wildbuffalo/getting-stated-nodejs')
-            }
-            extensions {
-                relativeTargetDirectory('apps')
-            }
-        }
-    }
+//    authenticationToken("mytoken")
+
     triggers {
         githubPush()
     }
