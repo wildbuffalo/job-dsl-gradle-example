@@ -30,19 +30,19 @@ pipelineJob('QA-dealworks-app') {
 //        }
         cpsScm {
             scm {
-                git {
-                    remote {
-                        branch('master')
-                        url('https://github.com/wildbuffalo/job-dsl-gradle-example.git')
-                        credentials('github-user')
-                    }
-                    extensions {
-                        cleanAfterCheckout()
-//                        relativeTargetDirectory('repo1')
-                    }
-//                    scriptPath('src/jobs/src/project-a-workflow.groovy')
-                }
-//                github('wildbuffalo/getting-stated-nodejs')
+//                git {
+//                    remote {
+//                        branch('master')
+//                        url('https://github.com/wildbuffalo/job-dsl-gradle-example.git')
+//                        credentials('github-user')
+//                    }
+//                    extensions {
+//                        cleanAfterCheckout()
+////                        relativeTargetDirectory('repo1')
+//                    }
+////                    scriptPath('src/jobs/src/project-a-workflow.groovy')
+//                }
+                github('wildbuffalo/getting-stated-nodejs')
             }
             scriptPath('src/jobs/src/project-a-workflow.groovy')
         }
