@@ -26,13 +26,8 @@ job("$basePath/QA-acgg") {
     }
     steps {
 //        groovyScriptFile('generateReports.groovy')
-        xShell {
-            commandLine('ls')
-        }
-        xShell {
-            commandLine('pwd')
-            executableInWorkspaceDir()
-        }
+        shell('ls')
+        shell('pwd')
     }
 
 //    environmentVariables {
