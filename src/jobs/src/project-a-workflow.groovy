@@ -53,7 +53,6 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-
                     sh 'printenv'
                     sh 'ls'
 //                    stage = params.stage
