@@ -9,12 +9,11 @@ job("$basePath/QA-acgg") {
     logRotator(-1, 10)
     scm {
         git {
-            branches('master','abvv')
             remote {
-
                 github('wildbuffalo/getting-stated-nodejs')
                 credentials('github-user')
             }
+            branches('master','abvv')
         }
     }
     triggers {
