@@ -54,7 +54,7 @@ pipeline {
             steps {
                 script {
                     sh 'printenv'
-                    sh 'ls'
+                    sh 'pwd'
 //                    stage = params.stage
 //                    version = params.version
 //                    test( REPO, STAGE, VERSION)
