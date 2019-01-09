@@ -8,7 +8,13 @@ folder(basePath) {
 job("$basePath/QA-acgg") {
     logRotator(-1, 10)
     scm {
-        github('wildbuffalo/getting-stated-nodejs','master')
+        git {
+            remote {
+                branches('master','abvv')
+                github('wildbuffalo/getting-stated-nodejs')
+                credentials('github-user')
+            }
+        }
     }
     triggers {
         githubPush()
