@@ -5,7 +5,7 @@ folder(basePath) {
     description 'This example shows how to create a set of jobs for each github branch, each in its own folder.'
 }
 
-job("QA-avb") {
+job("$basePath/QA-avb") {
 //    authenticationToken("mytoken")
 
     triggers {
@@ -25,7 +25,7 @@ job("QA-avb") {
 //    }
 //}
 
-pipelineJob('QA-dealworks-app') {
+pipelineJob("$basePath/QA-dealworks-app") {
     definition {
 //        cps {
 //            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
