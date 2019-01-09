@@ -6,7 +6,7 @@ folder(basePath) {
 }
 
 job("$basePath/QA-acgg") {
-    logRotator(-1, 10)
+    logRotator(-1, 1)
     scm {
         git {
             branch('master')
@@ -24,6 +24,20 @@ job("$basePath/QA-acgg") {
             }
         }
     }
+    steps {
+//        groovyScriptFile('generateReports.groovy')
+        xShell {
+            commandLine('ls')
+        }
+        xShell {
+            commandLine('pwd')
+            executableInWorkspaceDir()
+        }
+    }
+
+//    environmentVariables {
+//        scriptFile('Jenkinsfile')
+//    }
     triggers {
         githubPush()
     }
