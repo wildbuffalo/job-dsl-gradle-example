@@ -24,23 +24,23 @@ String basePath = 'abc'
 
 pipelineJob('QA-dealworks-app') {
     definition {
-        cps {
-            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
-            sandbox()
-        }
+//        cps {
+//            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
+//            sandbox()
+//        }
         cpsScm {
             scm {
                 git {
                     remote {
                         branch('master')
-                        url('https://github.com/wildbuffalo/getting-started-nodejs.git')
+                        url('https://github.com/wildbuffalo/job-dsl-gradle-example.git')
                         credentials('github-user')
                     }
-//                    extensions {
-//                        cleanAfterCheckout()
+                    extensions {
+                        cleanAfterCheckout()
 //                        relativeTargetDirectory('repo1')
-//                    }
-//                    scriptPath('src/jobs/src/project-a-workflow.groovy')
+                    }
+                    scriptPath('src/jobs/src/project-a-workflow.groovy')
                 }
             }
         }
@@ -50,33 +50,33 @@ pipelineJob('QA-dealworks-app') {
     }
 }
 
-pipelineJob('build-dealworks-app') {
-    definition {
-//        cps {
-//            script(readFileFromWorkspace('src/jobs/src/dealworks-app.groovy'))
-//            sandbox()
-//        }
-        cpsScm {
-            scm {
-                git {
-                    remote {
-                        branch('develop')
-                        url('https://github.com/wildbuffalo/dealworks-app.git')
-                        credentials('github-user')
-                    }
-//                    extensions {
-//                        cleanAfterCheckout()
-//                        relativeTargetDirectory('repo1')
+//pipelineJob('build-dealworks-app') {
+//    definition {
+////        cps {
+////            script(readFileFromWorkspace('src/jobs/src/dealworks-app.groovy'))
+////            sandbox()
+////        }
+//        cpsScm {
+//            scm {
+//                git {
+//                    remote {
+//                        branch('develop')
+//                        url('https://github.com/wildbuffalo/dealworks-app.git')
+//                        credentials('github-user')
 //                    }
-                    scriptPath('src/jobs/src/dealworks-app.groovy')
-                }
-            }
-        }
-    }
-    triggers {
-        githubPush()
-    }
-}
+////                    extensions {
+////                        cleanAfterCheckout()
+////                        relativeTargetDirectory('repo1')
+////                    }
+//                    scriptPath('src/jobs/src/dealworks-app.groovy')
+//                }
+//            }
+//        }
+//    }
+//    triggers {
+//        githubPush()
+//    }
+//}
 
 listView('QA') {
     description('All unstable jobs for project A')
@@ -101,9 +101,6 @@ listView('QA') {
         buildButton()
     }
 }
-
-
-
 buildMonitorView('project-A') {
     description('All jobs for project A')
     jobs {
