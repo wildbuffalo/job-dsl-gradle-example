@@ -23,3 +23,20 @@ job("$basePath/QA-acgg") {
 //        gradle('clean build')
 //    }
 }
+
+job("$basePath/example-5") {
+    scm {
+        git {
+            remote {
+                github('wildbuffalo/getting-stated-nodejs')
+                credentials('github-user')
+            }
+            branches('master','abvv')
+            extensions {
+                choosingStrategy {
+                    alternative()
+                }
+            }
+        }
+    }
+}
