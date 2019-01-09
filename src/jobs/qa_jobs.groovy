@@ -10,10 +10,11 @@ job("$basePath/QA-acgg") {
     scm {
         git {
             remote {
+                branch('master','abvv')
                 github('wildbuffalo/getting-stated-nodejs')
                 credentials('github-user')
             }
-            branch('master')
+
             extensions {
                 // Cleans up the workspace after every checkout by deleting all untracked files and directories, including those which are specified in .gitignore.
                 cleanAfterCheckout()
