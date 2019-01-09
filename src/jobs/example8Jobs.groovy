@@ -15,14 +15,14 @@ job("$basePath/gradle-example-build") {
             branch '${sha1}'
         }
     }
-    triggers {
-        githubPullRequest {
-            admin 'sheehan'
-            triggerPhrase 'OK to test'
-            onlyTriggerPhrase true
-        }
-    }
-    steps {
-        gradle 'assemble'
-    }
+//    triggers {
+//        githubPullRequest {
+//            admin 'sheehan'
+//            triggerPhrase 'OK to test'
+//            onlyTriggerPhrase true
+//        }
+//    }
+//    steps {
+//        gradle 'assemble'
+//    }
 }
