@@ -1,17 +1,33 @@
 String basePath = 'abc'
 //String repo = 'sheehan/gradle-example'
 
-//job("$basePath/gradle-example-build") {
-//    scm {
-//        github repo
-//    }
-//    triggers {
-//        scm 'H/5 * * * *'
-//    }
+job("QA-avb") {
+    authenticationToken("mytoken")
+    multiscm {
+        git {
+            remote {
+                github('wildbuffalo/job-dsl-gradle-example')
+            }
+            extensions {
+                relativeTargetDirectory('jenkins')
+            }
+        }
+        git {
+            remote {
+                github('wildbuffalo/getting-stated-nodejs')
+            }
+            extensions {
+                relativeTargetDirectory('apps')
+            }
+        }
+    }
+    triggers {
+        githubPush()
+    }
 //    steps {
 //        gradle 'assemble'
 //    }
-//}
+}
 //
 //job("$basePath/gradle-example-deploy") {
 //    parameters {
@@ -30,19 +46,19 @@ pipelineJob('QA-dealworks-app') {
 //        }
         cpsScm {
             scm {
-//                git {
-//                    remote {
-//                        branch('master')
-//                        url('https://github.com/wildbuffalo/job-dsl-gradle-example.git')
-//                        credentials('github-user')
-//                    }
-//                    extensions {
-//                        cleanAfterCheckout()
-////                        relativeTargetDirectory('repo1')
-//                    }
-////                    scriptPath('src/jobs/src/project-a-workflow.groovy')
-//                }
-                github('wildbuffalo/getting-stated-nodejs')
+                git {
+                    remote {
+                        branch('master')
+                        url('https://github.com/wildbuffalo/job-dsl-gradle-example.git')
+                        credentials('github-user')
+                    }
+                    extensions {
+                        cleanAfterCheckout()
+//                        relativeTargetDirectory('repo1')
+                    }
+//                    scriptPath('src/jobs/src/project-a-workflow.groovy')
+                }
+//                github('wildbuffalo/getting-stated-nodejs')
             }
             scriptPath('src/jobs/src/project-a-workflow.groovy')
         }
