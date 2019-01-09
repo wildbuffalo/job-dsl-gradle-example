@@ -13,7 +13,7 @@ job("$basePath/QA-acgg") {
             remote {
                 branch('master')
                 url: "https://github.com/wildbuffalo/getting-started-nodejs.git"
-                credentials('wildbuffalo')
+                credentials('github-user')
             }
 
             extensions {
