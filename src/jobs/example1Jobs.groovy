@@ -37,7 +37,7 @@ pipelineJob("$basePath/QA-dealworks-app") {
 
                     remote {
                         branch('master')
-                        github('https://github.com/wildbuffalo/job-dsl-gradle-example.git')
+                        github('wildbuffalo/job-dsl-gradle-example')
                         credentials('github-user')
                     }
                     extensions {

@@ -25,7 +25,6 @@ job("$basePath/QA-acgg") {
         }
     }
     steps {
-        groovyScriptFile('Jenkinsfile')
         shell('ls')
         shell('pwd')
     }
