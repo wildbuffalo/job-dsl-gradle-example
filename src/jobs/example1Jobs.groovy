@@ -5,16 +5,16 @@ folder(basePath) {
     description 'This example shows how to create a set of jobs for each github branch, each in its own folder.'
 }
 
-job("$basePath/QA-avb") {
-//    authenticationToken("mytoken")
-
-    triggers {
-        githubPush()
-    }
-//    steps {
-//        gradle 'assemble'
+//job("$basePath/QA-avb") {
+////    authenticationToken("mytoken")
+//
+//    triggers {
+//        githubPush()
 //    }
-}
+////    steps {
+////        gradle 'assemble'
+////    }
+//}
 //
 //job("$basePath/gradle-example-deploy") {
 //    parameters {
