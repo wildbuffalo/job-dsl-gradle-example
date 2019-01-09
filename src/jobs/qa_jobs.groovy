@@ -9,10 +9,10 @@ job("$basePath/QA-acgg") {
     logRotator(-1, 10)
     scm {
         git {
-
+            branch('master')
             remote {
-                branch('master')
-                url: "https://github.com/wildbuffalo/getting-started-nodejs.git"
+
+                url("https://github.com/wildbuffalo/getting-started-nodejs.git")
                 credentials('github-user')
             }
 
