@@ -10,7 +10,7 @@ job("$basePath/QA-acgg") {
     scm {
         git {
             remote {
-                branches('master','abvv')
+                branches('origin/master','origin/abvv')
                 github('wildbuffalo/getting-stated-nodejs')
                 credentials('github-user')
             }
