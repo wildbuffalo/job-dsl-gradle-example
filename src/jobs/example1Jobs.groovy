@@ -34,9 +34,10 @@ pipelineJob("$basePath/QA-dealworks-app") {
         cpsScm {
             scm {
                 git {
+                    branch('master')
                     remote {
-                        branch('master')
-                        url('https://github.com/wildbuffalo/job-dsl-gradle-example.git')
+
+                        github('https://github.com/wildbuffalo/job-dsl-gradle-example.git')
                         credentials('github-user')
                     }
                     extensions {
