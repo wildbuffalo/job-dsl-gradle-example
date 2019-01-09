@@ -42,7 +42,7 @@ pipelineJob('QA-dealworks-app') {
                     }
 //                    scriptPath('src/jobs/src/project-a-workflow.groovy')
                 }
-                github('wildbuffalo/getting-stated-nodejs')
+//                github('wildbuffalo/getting-stated-nodejs')
             }
             scriptPath('src/jobs/src/project-a-workflow.groovy')
         }
