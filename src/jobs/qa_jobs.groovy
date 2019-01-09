@@ -13,7 +13,13 @@ job("$basePath/QA-acgg") {
                 github('wildbuffalo/getting-stated-nodejs')
                 credentials('github-user')
             }
-            branches('master','abvv')
+            branch('master')
+            extensions {
+                // Cleans up the workspace after every checkout by deleting all untracked files and directories, including those which are specified in .gitignore.
+                cleanAfterCheckout()
+                // Clean up the workspace before every checkout by deleting all untracked files and directories, including those which are specified in .gitignore.
+                cleanBeforeCheckout()
+            }
         }
     }
     triggers {
@@ -24,19 +30,19 @@ job("$basePath/QA-acgg") {
 //    }
 }
 
-job("$basePath/example-5") {
-    scm {
-        git {
-            remote {
-                github('wildbuffalo/getting-stated-nodejs')
-                credentials('github-user')
-            }
-            branches('master','abvv')
-            extensions {
-                choosingStrategy {
-                    alternative()
-                }
-            }
-        }
-    }
-}
+//job("$basePath/example-5") {
+//    scm {
+//        git {
+//            remote {
+//                github('wildbuffalo/getting-stated-nodejs')
+//                credentials('github-user')
+//            }
+//            branches('master','abvv')
+//            extensions {
+//                choosingStrategy {
+//                    alternative()
+//                }
+//            }
+//        }
+//    }
+//}
