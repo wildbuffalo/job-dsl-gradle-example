@@ -59,6 +59,7 @@ pipelineJob("$basePath/QA-dealworks-app") {
 pipelineJob("$basePath/deployment") {
     parameters {
         stringParam('SRC_PATH', 'mrll-npm/@mrll/dealworks-app/-/@mrll/dealworks-app-1.0.294.tgz')
+        stringParam('getrepo', 'dealworks-app')
         choiceParam('Space', ['devg', 'stageg', 'prod'], 'PCF spaces')
         choiceParam('Manifest', ['manifest-dev', 'manifest-stage', 'manifest-prod'], 'PCF manifest file')
 

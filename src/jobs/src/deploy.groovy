@@ -7,6 +7,8 @@ pipeline {
         JFROG = credentials("mrll-artifactory")
         CF_DOCKER_PASSWORD = "$JFROG_PSW"
         PCF = credentials("svc-inf-jenkins")
+        Space = "$params.Space"
+        getrepo = "$params.getrepo"
     }
     options {
         skipDefaultCheckout()
@@ -38,10 +40,10 @@ pipeline {
             //  agent any
             steps {
                 git branch: 'master', url: "https://github.com/wildbuffalo/job-dsl-gradle-example.git"
-                script {
-                    getrepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
-//getrepo = sh "basename `git rev-parse --show-toplevel`"
-                }
+//                script {
+//                    getrepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
+////getrepo = sh "basename `git rev-parse --show-toplevel`"
+//                }
                 echo "$getrepo"
                 sh "curl -u $JFROG_USR:$JFROG_PSW -o ./archive.tgz -L https://merrillcorp.jfrog.io/merrillcorp/${params.SRC_PATH} --fail -O"
                 sh 'mkdir archive'
