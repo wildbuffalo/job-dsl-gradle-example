@@ -1,0 +1,1 @@
+FROM merrillcorp-dealworks.jfrog.io/tools:latest

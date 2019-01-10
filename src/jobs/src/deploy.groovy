@@ -1,4 +1,5 @@
 package src
+
 pipeline {
     agent any
 
@@ -9,7 +10,7 @@ pipeline {
     }
     options {
         skipDefaultCheckout()
-        ansiColor('xterm')
+        disableConcurrentBuilds()
     }
     post {
         cleanup {
@@ -34,15 +35,13 @@ pipeline {
     }
     stages {
         stage('Checkout') {
-
             //  agent any
             steps {
-                git branch: 'deploy_dev', url: "https://github.com/wildbuffalo/getting-started-nodejs.git"
+                git branch: 'master', url: "https://github.com/wildbuffalo/job-dsl-gradle-example.git"
                 script {
                     getrepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
 //getrepo = sh "basename `git rev-parse --show-toplevel`"
                 }
-
                 echo "$getrepo"
                 sh "curl -u $JFROG_USR:$JFROG_PSW -o ./archive.tgz -L https://merrillcorp.jfrog.io/merrillcorp/${params.SRC_PATH} --fail -O"
                 sh 'mkdir archive'
@@ -55,38 +54,37 @@ pipeline {
         stage('Push to PCF') {
             steps {
                 script {
-                    //  node {
-
                     docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
-                        def dockerfile = './Docker/pcf.Dockerfile'
+                        def dockerfile = './devops/pcf.Dockerfile'
                         docker_pcf_src = docker.build("docker_pcf_src", "-f ${dockerfile} .")
                         docker_pcf_src.inside() {
                             dir("first-stash") {
                                 unstash 'app'
                             }
-                            //   unstash 'app'
-
-                            sh 'ls'
-                            sh 'pwd'
-                            sh 'printenv'
-                            sh 'cf -v'
+//                            sh 'ls'
+//                            sh 'pwd'
+//                            sh 'printenv'
+//                            sh 'cf -v'
 //                            sh "cd ${pwd()}/archive/package/ &&\
 //                                        ls &&\
-//                                        cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s ${params.Space} &&\
+//                                        cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s ${params.Space} -o us2-datasiteone &&\
 //                                        cf blue-green-deploy $getrepo -f ${pwd()}/pcf/${params.Manifest}.yml --delete-old-apps"
-//                            if ( ${params.Space} == 'prod') {
-//                                echo 'I only execute on the master branch'
-//                            sh "cd ${pwd()}/archive/package/ &&\
-//                                        ls &&\
-//                                        cf login -a https://api.sys.us2.prodg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW &&\
-//                                        cf blue-green-deploy $getrepo -f ${pwd()}/pcf/${params.Manifest}.yml --delete-old-apps"
-//                            } else {
-//                                echo 'I execute elsewhere'
-                            sh "cd ${pwd()}/archive/package/ &&\
+                            if (Space == 'prod') {
+                                sh "cd ${pwd()}/archive/package/ &&\
+                                        ls &&\
+                                        cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s ${params.Space} -o us2-datasiteone &&\
+                                        cf blue-green-deploy $getrepo-prod -f ${pwd()}/pcf/${params.Manifest}.yml --delete-old-apps"
+                            } else if (Space == 'stageg') {
+                                sh "cd ${pwd()}/archive/package/ &&\
+                                        ls &&\
+                                        cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s ${params.Space} -o us2-datasiteone &&\
+                                        cf blue-green-deploy $getrepo-stage -f ${pwd()}/pcf/${params.Manifest}.yml --delete-old-apps"
+                            } else {
+                                sh "cd ${pwd()}/archive/package/ &&\
                                         ls &&\
                                         cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s ${params.Space} -o us2-datasiteone &&\
                                         cf blue-green-deploy $getrepo -f ${pwd()}/pcf/${params.Manifest}.yml --delete-old-apps"
-
+                            }
                         }
                     }
                 }
