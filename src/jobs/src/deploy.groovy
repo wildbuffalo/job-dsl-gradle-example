@@ -6,31 +6,17 @@ pipeline {
         JFROG = credentials("mrll-artifactory")
         CF_DOCKER_PASSWORD = "$JFROG_PSW"
         PCF = credentials("svc-inf-jenkins")
-//        repoName="dealworks-app"
     }
     options {
         skipDefaultCheckout()
         ansiColor('xterm')
     }
     parameters {
-//        string(name: 'REPO', defaultValue: 'dealworks-app')
         string(name: 'SRC_PATH', defaultValue: 'mrll-npm/@mrll/dealworks-app/-/@mrll/dealworks-app-1.0.294.tgz')
-
-        // booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
-
         choice(name: 'Space', choices: ['devg', 'stageg', 'prod'], description: 'PCF spaces')
         choice(name: 'Manifest', choices: ['manifest-dev', 'manifest-stage', 'manifest-prod'], description: 'PCF manifest file')
-
-        // password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
-
     }
     post {
-        always {
-            echo "I AM ALWAYS first"
-            sh 'docker system prune --all --force --volumes'
-            // sh 'docker rmi $(docker images -q -f dangling=true)'
-        }
-
         cleanup {
             cleanWs() // clean the current workspace
             // clean the @tmp workspace
@@ -52,12 +38,11 @@ pipeline {
         }
     }
     stages {
-
         stage('Checkout') {
 
             //  agent any
             steps {
-                git url: "https://github.com/wildbuffalo/getting-started-nodejs.git"
+//                git url: "https://github.com/wildbuffalo/getting-started-nodejs.git"
                 script {
                     getrepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
 //getrepo = sh "basename `git rev-parse --show-toplevel`"
@@ -104,7 +89,7 @@ pipeline {
 //                                echo 'I execute elsewhere'
                             sh "cd ${pwd()}/archive/package/ &&\
                                         ls &&\
-                                        cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s ${params.Space} &&\
+                                        cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s ${params.Space} -o us2-datasiteone &&\
                                         cf blue-green-deploy $getrepo -f ${pwd()}/pcf/${params.Manifest}.yml --delete-old-apps"
 
                         }
