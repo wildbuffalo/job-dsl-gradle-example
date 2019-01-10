@@ -58,18 +58,9 @@ pipelineJob("$basePath/QA-dealworks-app") {
 
 pipelineJob("$basePath/deployment") {
     parameters {
-        stringParam(name: 'SRC_PATH', defaultValue: 'mrll-npm/@mrll/dealworks-app/-/@mrll/dealworks-app-1.0.294.tgz')
-        activeChoiceParam('CHOICE-1') {
-            description('Allows user choose from multiple choices')
-            filterable()
-            choiceType('SINGLE_SELECT')
-            groovyScript {
-                script('["choice1", "choice2"]')
-                fallbackScript('"fallback choice"')
-            }
-        }
-//        choice(name: 'Space', choices: ['devg', 'stageg', 'prod'], description: 'PCF spaces')
-//        choice(name: 'Manifest', choices: ['manifest-dev', 'manifest-stage', 'manifest-prod'], description: 'PCF manifest file')
+        stringParam('SRC_PATH','mrll-npm/@mrll/dealworks-app/-/@mrll/dealworks-app-1.0.294.tgz')
+        choiceParam('Space', ['devg', 'stageg', 'prod'], 'PCF spaces')
+        choiceParam('Manifest', ['manifest-dev', 'manifest-stage', 'manifest-prod'], 'PCF manifest file')
 
     }
     definition {
