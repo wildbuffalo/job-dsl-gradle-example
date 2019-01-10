@@ -73,17 +73,17 @@ pipeline {
                                 sh "cd ${pwd()}/archive/package/ &&\
                                         ls &&\
                                         cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s ${params.Space} -o us2-datasiteone &&\
-                                        cf blue-green-deploy $getrepo-prod -f ${pwd()}/pcf/${params.Manifest}.yml --delete-old-apps"
+                                        cf blue-green-deploy $getrepo-prod -f pcf/${params.Manifest}.yml --delete-old-apps"
                             } else if (Space == 'stageg') {
                                 sh "cd ${pwd()}/archive/package/ &&\
                                         ls &&\
                                         cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s ${params.Space} -o us2-datasiteone &&\
-                                        cf blue-green-deploy $getrepo-stage -f ${pwd()}/pcf/${params.Manifest}.yml --delete-old-apps"
+                                        cf blue-green-deploy $getrepo-stage -f pcf/${params.Manifest}.yml --delete-old-apps"
                             } else {
                                 sh "cd ${pwd()}/archive/package/ &&\
                                         ls &&\
                                         cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s ${params.Space} -o us2-datasiteone &&\
-                                        cf blue-green-deploy $getrepo -f ${pwd()}/pcf/${params.Manifest}.yml --delete-old-apps"
+                                        cf blue-green-deploy $getrepo -f pcf/${params.Manifest}.yml --delete-old-apps"
                             }
                         }
                     }
