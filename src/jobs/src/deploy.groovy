@@ -42,7 +42,7 @@ pipeline {
 
             //  agent any
             steps {
-                git url: "https://github.com/wildbuffalo/getting-started-nodejs.git"
+                git branch: 'deploy_dev' url: "https://github.com/wildbuffalo/getting-started-nodejs.git"
                 script {
                     getrepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
 //getrepo = sh "basename `git rev-parse --show-toplevel`"
