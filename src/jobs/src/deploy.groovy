@@ -11,11 +11,6 @@ pipeline {
         skipDefaultCheckout()
         ansiColor('xterm')
     }
-    parameters {
-        string(name: 'SRC_PATH', defaultValue: 'mrll-npm/@mrll/dealworks-app/-/@mrll/dealworks-app-1.0.294.tgz')
-        choice(name: 'Space', choices: ['devg', 'stageg', 'prod'], description: 'PCF spaces')
-        choice(name: 'Manifest', choices: ['manifest-dev', 'manifest-stage', 'manifest-prod'], description: 'PCF manifest file')
-    }
     post {
         cleanup {
             cleanWs() // clean the current workspace
