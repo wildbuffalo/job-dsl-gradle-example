@@ -5,32 +5,8 @@ folder(basePath) {
     description 'This example shows how to create a set of jobs for each github branch, each in its own folder.'
 }
 
-//job("$basePath/QA-avb") {
-////    authenticationToken("mytoken")
-//
-//    triggers {
-//        githubPush()
-//    }
-////    steps {
-////        gradle 'assemble'
-////    }
-//}
-//
-//job("$basePath/gradle-example-deploy") {
-//    parameters {
-//        stringParam 'host'
-//    }
-//    steps {
-//        shell 'scp war file; restart...'
-//    }
-//}
-
 pipelineJob("$basePath/QA-dealworks-app") {
     definition {
-//        cps {
-//            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
-//            sandbox()
-//        }
         cpsScm {
             scm {
                 git {
@@ -88,9 +64,9 @@ pipelineJob("$basePath/deployment") {
             scriptPath('src/jobs/src/deploy.groovy')
         }
     }
-    triggers {
-        githubPush()
-    }
+//    triggers {
+//        githubPush()
+//    }
 }
 //pipelineJob('build-dealworks-app') {
 //    definition {
