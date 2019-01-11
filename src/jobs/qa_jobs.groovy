@@ -40,19 +40,28 @@ job("$basePath/QA-acgg") {
 //    }
 }
 
-//job("$basePath/example-5") {
-//    scm {
-//        git {
-//            remote {
+pipelineJob("$basePath/QA-dealworks-app") {
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        branch('master')
+                        github('wildbuffalo/job-dsl-gradle-example')
+                        credentials('github-user')
+                    }
+                    extensions {
+                        cleanAfterCheckout()
+//                        relativeTargetDirectory('repo1')
+                    }
+//                    scriptPath('src/jobs/src/project-a-workflow.groovy')
+                }
 //                github('wildbuffalo/getting-stated-nodejs')
-//                credentials('github-user')
-//            }
-//            branches('master','abvv')
-//            extensions {
-//                choosingStrategy {
-//                    alternative()
-//                }
-//            }
-//        }
-//    }
-//}
+            }
+            scriptPath('src/jobs/src/project-a-workflow.groovy')
+        }
+    }
+    triggers {
+        githubPush()
+    }
+}
