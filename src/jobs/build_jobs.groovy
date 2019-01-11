@@ -15,7 +15,7 @@ pipelineJob('build-dealworks-app') {
             scm {
                 git {
                     remote {
-                        branch('develop')
+                        branch('master')
                         github('wildbuffalo/job-dsl-gradle-example')
                         credentials('github-user')
                     }
