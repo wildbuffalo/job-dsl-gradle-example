@@ -6,29 +6,31 @@ folder(basePath) {
 }
 multibranchPipelineJob("$basePath/build-dealworks-app") {
     branchSources {
-        // Sets the GitHub API URI.
+        github {
+            // Sets the GitHub API URI.
 //        apiUri(String apiUri)
 // Build origin branches.
-        buildOriginBranch()
+            buildOriginBranch()
 // Build origin branches also filed as PRs.
-        buildOriginBranchWithPR()
+            buildOriginBranchWithPR()
 // Build origin PRs (unmerged head).
 //        buildOriginPRHead(boolean buildOriginPRHead = true)
 // Build origin PRs (merged with base branch).
-        buildOriginPRMerge()
+            buildOriginPRMerge()
 // Sets checkout credentials for authentication with GitHub.
-        checkoutCredentialsId("github-user")
+            checkoutCredentialsId("github-user")
 // Sets a pattern for branches to exclude.
 //        excludes(String excludes)
 
 // Sets a pattern for branches to include.
-        includes("develop,master,stage")
+            includes("develop,master,stage")
 // Sets the name of the GitHub Organization or GitHub User Account.
-        repoOwner("MerrillCorporation")
+            repoOwner("MerrillCorporation")
 // Sets the name of the GitHub repository.
-        repository("dealworks-app")
+            repository("dealworks-app")
 // Sets scan credentials for authentication with GitHub.
-        scanCredentialsId("github-user")
+            scanCredentialsId("github-user")
+        }
     }
     orphanedItemStrategy {
         // Trims dead items by the number of days or the number of items.
