@@ -5,7 +5,7 @@ folder(basePath) {
     description 'This example shows how to create a set of jobs for each github branch, each in its own folder.'
 }
 
-pipelineJob('build-dealworks-app') {
+pipelineJob("$basePath/build-dealworks-app") {
     definition {
 //        cps {
 //            script(readFileFromWorkspace('src/jobs/src/dealworks-app.groovy'))

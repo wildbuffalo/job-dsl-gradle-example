@@ -42,7 +42,7 @@ pipeline {
             //  agent any
             steps {
 //                git url: "https://github.com/wildbuffalo/dealworks-app.git"branches: [[name: '*/develop']],
-                checkout([$class: 'GitSCM',  doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: 'https://github.com/wildbuffalo/dealworks-app.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master'], [name: '*/develop'],[name: '*/PR+'],[name: '*/stage']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: 'https://github.com/wildbuffalo/dealworks-app.git']]])
                 script {
                     env.gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                     env.getRepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
