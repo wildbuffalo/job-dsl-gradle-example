@@ -4,7 +4,7 @@ String basePath = 'JOBS'
 folder(basePath) {
     description 'This example shows how to create a set of jobs for each github branch, each in its own folder.'
 }
-multibranchPipelineJob("$basePath/build-dealworks-app") {
+multibranchPipelineJob("$basePath/dealworks-app") {
     branchSources {
         github {
             // Sets the GitHub API URI.
