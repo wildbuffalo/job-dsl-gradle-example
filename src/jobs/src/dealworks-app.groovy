@@ -38,18 +38,18 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            //  agent any
-            steps {
-                git url: "https://github.com/wildbuffalo/dealworks-app.git"
-//                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: 'https://github.com/wildbuffalo/getting-started-nodejs.git']]])
-                script {
-                    env.gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-                    env.getRepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
-                    sh 'printenv'
-                }
-            }
-        }
+//        stage('Checkout') {
+//            //  agent any
+//            steps {
+//                git url: "https://github.com/wildbuffalo/dealworks-app.git"
+////                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: 'https://github.com/wildbuffalo/getting-started-nodejs.git']]])
+//                script {
+//                    env.gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+//                    env.getRepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
+//                    sh 'printenv'
+//                }
+//            }
+//        }
         stage('Build') {
             steps {
                 script {
