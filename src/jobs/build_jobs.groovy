@@ -9,13 +9,13 @@ multibranchPipelineJob("$basePath/build-dealworks-app") {
         // Sets the GitHub API URI.
 //        apiUri(String apiUri)
 // Build origin branches.
-        buildOriginBranch(true)
+        buildOriginBranch()
 // Build origin branches also filed as PRs.
-        buildOriginBranchWithPR(true)
+        buildOriginBranchWithPR()
 // Build origin PRs (unmerged head).
 //        buildOriginPRHead(boolean buildOriginPRHead = true)
 // Build origin PRs (merged with base branch).
-        buildOriginPRMerge(true)
+        buildOriginPRMerge()
 // Sets checkout credentials for authentication with GitHub.
         checkoutCredentialsId("github-user")
 // Sets a pattern for branches to exclude.
@@ -34,7 +34,7 @@ multibranchPipelineJob("$basePath/build-dealworks-app") {
         // Trims dead items by the number of days or the number of items.
         discardOldItems {
 // Sets the number of days to keep old items.
-            daysToKeep()
+            daysToKeep(1)
 // Sets the number of old items to keep.
             numToKeep(5)
         }
