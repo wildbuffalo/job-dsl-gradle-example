@@ -7,23 +7,26 @@ folder(basePath) {
 multibranchPipelineJob("$basePath/dealworks-app") {
     branchSources {
         github {
-            // Sets the GitHub API URI.
-//        apiUri(String apiUri)
-// Build origin branches.
-            buildOriginBranch()
-// Build origin branches also filed as PRs.
-            buildOriginBranchWithPR()
-// Build origin PRs (unmerged head).
-//        buildOriginPRHead(boolean buildOriginPRHead = true)
-// Build origin PRs (merged with base branch).
-            buildOriginPRMerge()
+//            // Sets the GitHub API URI.
+////        apiUri(String apiUri)
+//            buildForkPRHead()
+//// Build fork PRs (merged with base branch).
+//            buildForkPRMerge()
+//// Build origin branches.
+//            buildOriginBranch()
+//// Build origin branches also filed as PRs.
+//            buildOriginBranchWithPR()
+//// Build origin PRs (unmerged head).
+//            buildOriginPRHead()
+//// Build origin PRs (merged with base branch).
+//            buildOriginPRMerge()
 // Sets checkout credentials for authentication with GitHub.
-            checkoutCredentialsId("github-user")
+//            checkoutCredentialsId("github-user")
 // Sets a pattern for branches to exclude.
 //        excludes(String excludes)
 
 // Sets a pattern for branches to include.
-            includes("develop,master,stage")
+            includes('master|stage|develop|PR-.+')
 // Sets the name of the GitHub Organization or GitHub User Account.
             repoOwner("MerrillCorporation")
 // Sets the name of the GitHub repository.
