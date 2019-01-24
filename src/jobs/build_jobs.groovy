@@ -44,7 +44,6 @@ multibranchPipelineJob("$basePath/dealworks-app") {
             numToKeep(5)
         }
     }
-
 }
 //pipelineJob("$basePath/build-dealworks-app") {
 //    definition {

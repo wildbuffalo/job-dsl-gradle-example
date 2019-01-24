@@ -41,8 +41,8 @@ pipeline {
         stage('Checkout') {
             //  agent any
             steps {
-                git url: "https://github.com/wildbuffalo/getting-started-nodejs.git"
-//                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: 'https://github.com/wildbuffalo/getting-started-nodejs.git']]])
+//                git url: "https://github.com/MerrillCorporation/dealworks-app.git"
+                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: 'https://github.com/MerrillCorporation/dealworks-ui-tests.git']]])
                 script {
                     env.gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                     env.getRepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
@@ -55,16 +55,14 @@ pipeline {
                 script {
                     sh 'printenv'
                     sh 'pwd'
-
-//                    stage = params.stage
-//                    version = params.version
-//                    test( REPO, STAGE, VERSION)
-//                    post_notification {}
-//                    deployment( REPO, STAGE, VERSION)
-//                    deployment()
-
                     sh 'ls'
-
+                    docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
+                        def dockerfile = './devops/Dockerfile'
+                        tools_image = docker.build("dealworks-app/QA:latest", "--pull --rm -f ${dockerfile} .")
+                        tools_image.inside() {
+                            sh "bundle exec parallel_cucumber features/ -n $THREADS -o \"-t @loginValidUsernamePassword env=dev sys=windows jobExecutionPlatform=jenkins --retry 2\"|tee test-output.log"
+                        }
+                    }
                 }
             }
         }
