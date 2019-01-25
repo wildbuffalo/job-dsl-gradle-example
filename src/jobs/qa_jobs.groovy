@@ -67,9 +67,9 @@ pipelineJob("$basePath/QA-dealworks-app") {
         githubPush()
     }
     parameters {
-        globalVariableParam("Environment", "dev", "Environment Variable")
-        globalVariableParam("tag", "smoke")
-        globalVariableParam("threads", "35")
+        stringParam("Environment", "dev", "Environment Variable")
+        stringParam("tag", "smoke")
+        stringParam("threads", "35")
 //// Defines a parameter to select a label used to identify/restrict the node where this job should run on.
 //        labelParam(String parameterName) {}
 //// Defines a parameter that allows to select a Subversion tag from which to create the working copy for the project.
