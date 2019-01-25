@@ -56,9 +56,10 @@ pipeline {
                     sh 'printenv'
                     sh 'pwd'
                     sh 'ls'
+                    getDockerfile()
                     docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
-                        def dockerfile = './devops/Dockerfile'
-                        tools_image = docker.build("dealworks-app/QA:latest", "--pull --rm -f ${dockerfile} .")
+                        def dockerfile = './qa.Dockerfile'
+                        tools_image = docker.build("dealworks-app/qa:latest", "--pull --rm -f ${dockerfile} .")
                         tools_image.inside() {
                             sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t $params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 2\"|tee test-output.log"
                         }
@@ -67,4 +68,18 @@ pipeline {
             }
         }
     }
+}
+def getDockerfile() {
+    writeFile file: 'qa.Dockerfile', text: '''FROM ruby:alpine3.8
+RUN apk add --no-cache make gcc g++ vim
+# throw errors if Gemfile has been modified since Gemfile.lock
+RUN bundle config --global frozen 1
+WORKDIR /usr/app
+
+COPY Gemfile /usr/app/
+COPY Gemfile.lock /usr/app/
+RUN bundle install
+
+COPY . .'''
+
 }
