@@ -60,7 +60,7 @@ pipeline {
                         def dockerfile = './devops/Dockerfile'
                         tools_image = docker.build("dealworks-app/QA:latest", "--pull --rm -f ${dockerfile} .")
                         tools_image.inside() {
-                            sh "bundle exec parallel_cucumber features/ -n $THREADS -o \"-t @loginValidUsernamePassword env=dev sys=windows jobExecutionPlatform=jenkins --retry 2\"|tee test-output.log"
+                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t $params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 2\"|tee test-output.log"
                         }
                     }
                 }
