@@ -63,7 +63,7 @@ pipeline {
                         tools_image.inside() {
 
 
-                            sauce('ace7b619-cddd-484c-a535-8fad4de50a84') {
+                            sauce('saucelabs') {
                                 sauceconnect(options: '', useGeneratedTunnelIdentifier: false, verboseLogging: false) {
 //                                    sh './node_modules/.bin/nightwatch -e chrome --test tests/guineaPig.js || true'
 //                                    junit 'reports/**'
