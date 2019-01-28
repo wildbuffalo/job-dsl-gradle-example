@@ -1,6 +1,6 @@
 @Library('ds1-marketing-jenkins-library@master') _
 pipeline {
-    agent any
+
     options {
         skipDefaultCheckout()
         disableConcurrentBuilds()
@@ -47,22 +47,33 @@ pipeline {
                     env.gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                     env.getRepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
                     sh 'printenv'
+                    getDockerfile()
                 }
             }
         }
         stage('Build') {
+            agent {
+                dockerfile {
+                    additionalBuildArgs '--pull --rm'
+                    filename 'Dockerfile'
+                    label 'dealworks-app/qa:latest'
+                    registryCredentialsId 'mrll-artifactory'
+                    registryUrl 'https://merrillcorp-dealworks.jfrog.io'
+//                    reuseNode true
+                }
+            }
             steps {
                 script {
                     sh 'printenv'
                     sh 'pwd'
                     sh 'ls'
-                    getDockerfile()
-                    docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
-                        def dockerfile = './qa.Dockerfile'
-                        tools_image = docker.build("dealworks-app/qa:latest", "--pull --rm -f ${dockerfile} .")
-                        tools_image.inside() {
 
+//                    docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
+//                        def dockerfile = './qa.Dockerfile'
+//                        tools_image = docker.build("dealworks-app/qa:latest", "--pull --rm -f ${dockerfile} .")
+//                        tools_image.inside() {
 
+//                            step([$class: 'DockerBuilderPublisher', cleanImages: true, cleanupWithJenkinsJobDelete: true, cloud: '', dockerFileDirectory: 'qa.Dockerfile', fromRegistry: [], pushCredentialsId: 'mrll-artifactory', pushOnSuccess: true, tagsString: 'dealworks-app/qa:latest'])
                             sauce('saucelabs') {
                                 sauceconnect() {
 //                                    sh './node_modules/.bin/nightwatch -e chrome --test tests/guineaPig.js || true'
@@ -75,9 +86,9 @@ pipeline {
 //                                    sh "ls"
 //                                    step([$class: 'SauceOnDemandTestPublisher'])
 //                                    saucePublisher()
-                                }
-
-                            }
+//                                }
+//
+//                            }
                         }
                     }
                 }
