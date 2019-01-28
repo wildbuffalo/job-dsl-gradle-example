@@ -54,8 +54,8 @@ pipeline {
         stage('Build') {
             agent {
                 dockerfile {
-                    additionalBuildArgs '--pull --rm -t dealworks-app/qa:latest'
-                    filename 'Dockerfile'
+                    additionalBuildArgs '-t dealworks-app/qa:latest --pull --rm ./qa.Dockerfile .'
+//                    filename 'qa.Dockerfile'
                     registryCredentialsId 'mrll-artifactory'
                     registryUrl 'https://merrillcorp-dealworks.jfrog.io'
 //                    reuseNode true
