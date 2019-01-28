@@ -47,32 +47,32 @@ pipeline {
                     env.gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                     env.getRepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
                     sh 'printenv'
-                    getDockerfile()
+
                 }
             }
         }
         stage('Build') {
-            agent {
-                dockerfile {
-
-                    additionalBuildArgs '-t dealworks-app/qa:latest'
-                    additionalBuildArgs '--pull'
-                    additionalBuildArgs '--rm'
-                    filename 'qa.Dockerfile'
-                    registryCredentialsId 'mrll-artifactory'
-                    registryUrl 'https://merrillcorp-dealworks.jfrog.io'
-                }
-            }
+//            agent {
+//                dockerfile {
+//
+//                    additionalBuildArgs '-t dealworks-app/qa:latest'
+//                    additionalBuildArgs '--pull'
+//                    additionalBuildArgs '--rm'
+//                    filename 'qa.Dockerfile'
+//                    registryCredentialsId 'mrll-artifactory'
+//                    registryUrl 'https://merrillcorp-dealworks.jfrog.io'
+//                }
+//            }
             steps {
                 script {
                     sh 'printenv'
                     sh 'pwd'
                     sh 'ls'
-
-//                    docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
-//                        def dockerfile = './qa.Dockerfile'
-//                        tools_image = docker.build("dealworks-app/qa:latest", "--pull --rm -f ${dockerfile} .")
-//                        tools_image.inside() {
+                    getDockerfile()
+                    docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
+                        def dockerfile = './qa.Dockerfile'
+                        tools_image = docker.build("dealworks-app/qa:latest", "--pull --rm -f ${dockerfile} .")
+                        tools_image.inside() {
 
 //                            step([$class: 'DockerBuilderPublisher', cleanImages: true, cleanupWithJenkinsJobDelete: true, cloud: '', dockerFileDirectory: 'qa.Dockerfile', fromRegistry: [], pushCredentialsId: 'mrll-artifactory', pushOnSuccess: true, tagsString: 'dealworks-app/qa:latest'])
                             sauce('saucelabs') {
@@ -87,27 +87,37 @@ pipeline {
 //                                    sh "ls"
 //                                    step([$class: 'SauceOnDemandTestPublisher'])
 //                                    saucePublisher()
-//                                }
-//
-//                            }
+                                    step([$class: 'XUnitBuilder',
+                                          thresholds: [
+                                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
+                                                  // Allow for a significant number of failures
+                                                  // Keeping this threshold so that overwhelming failures are guaranteed
+                                                  //     to still fail the build
+                                                  [$class: 'FailedThreshold', failureThreshold: '10']],
+                                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
+
+                                    saucePublisher()
+                                }
+
+                            }
                         }
                     }
                 }
             }
-            post{
-                always {
-                    step([$class: 'XUnitBuilder',
-                          thresholds: [
-                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
-                                  // Allow for a significant number of failures
-                                  // Keeping this threshold so that overwhelming failures are guaranteed
-                                  //     to still fail the build
-                                  [$class: 'FailedThreshold', failureThreshold: '10']],
-                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
-
-                    saucePublisher()
-                }
-            }
+//            post{
+//                always {
+//                    step([$class: 'XUnitBuilder',
+//                          thresholds: [
+//                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
+//                                  // Allow for a significant number of failures
+//                                  // Keeping this threshold so that overwhelming failures are guaranteed
+//                                  //     to still fail the build
+//                                  [$class: 'FailedThreshold', failureThreshold: '10']],
+//                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
+//
+//                    saucePublisher()
+//                }
+//            }
         }
 //        stage('Publish Result') {
 //            steps {
