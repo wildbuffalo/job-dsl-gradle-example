@@ -56,11 +56,11 @@ pipeline {
                     sh 'printenv'
                     sh 'pwd'
                     sh 'ls'
-                    getDockerfile()
-                    docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
-                        def dockerfile = './qa.Dockerfile'
-                        tools_image = docker.build("dealworks-app/qa:latest", "--pull --rm -f ${dockerfile} .")
-                        tools_image.inside() {
+//                    getDockerfile()
+//                    docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
+//                        def dockerfile = './qa.Dockerfile'
+//                        tools_image = docker.build("dealworks-app/qa:latest", "--pull --rm -f ${dockerfile} .")
+//                        tools_image.inside() {
 
 
                             sauce('saucelabs') {
@@ -72,9 +72,9 @@ pipeline {
 //                                    | tee test-output.log
 //                            @$params.tag
                                     saucePublisher()
-                                }
-
-                            }
+//                                }
+//
+//                            }
                         }
                     }
                 }
