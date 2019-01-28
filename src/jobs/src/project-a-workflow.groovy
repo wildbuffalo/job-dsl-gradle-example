@@ -61,19 +61,21 @@ pipeline {
                         def dockerfile = './qa.Dockerfile'
                         tools_image = docker.build("dealworks-app/qa:latest", "--pull --rm -f ${dockerfile} .")
                         tools_image.inside() {
-                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1\"|tee test-output.log"
+                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @dealworksProjectFromTheGLOP env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1\"|tee test-output.log"
+//                            @$params.tag
+                            saucePublisher()
                         }
                     }
                 }
             }
         }
-        stage('Publish Result') {
-            steps {
-                script {
-                    saucePublisher()
-                }
-            }
-        }
+//        stage('Publish Result') {
+//            steps {
+//                script {
+//
+//                }
+//            }
+//        }
     }
 }
 def getDockerfile() {
