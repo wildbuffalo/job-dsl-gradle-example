@@ -67,6 +67,13 @@ pipeline {
                 }
             }
         }
+        tage('Publish Result') {
+            steps {
+                script {
+                    saucePublisher()
+                }
+            }
+        }
     }
 }
 def getDockerfile() {
