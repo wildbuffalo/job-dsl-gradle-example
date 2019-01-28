@@ -1,6 +1,6 @@
 @Library('ds1-marketing-jenkins-library@master') _
 pipeline {
-
+    agent none
     options {
         skipDefaultCheckout()
         disableConcurrentBuilds()
