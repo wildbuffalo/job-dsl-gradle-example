@@ -67,7 +67,7 @@ pipeline {
                 }
             }
         }
-        tage('Publish Result') {
+        stage('Publish Result') {
             steps {
                 script {
                     saucePublisher()
