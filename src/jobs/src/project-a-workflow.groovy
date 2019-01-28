@@ -55,8 +55,8 @@ pipeline {
             agent {
                 dockerfile {
 
-                    args '-t dealworks-app/qa:latest --pull --rm ./qa.Dockerfile .'
-
+                    additionalBuildArgs '-t dealworks-app/qa:latest --pull --rm'
+                    filename 'qa.Dockerfile'
                     registryCredentialsId 'mrll-artifactory'
                     registryUrl 'https://merrillcorp-dealworks.jfrog.io'
                 }
