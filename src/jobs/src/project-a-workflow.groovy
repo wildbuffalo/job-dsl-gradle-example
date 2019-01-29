@@ -111,8 +111,8 @@ RUN apk add --no-cache make gcc g++ vim
 RUN bundle config --global frozen 1
 WORKDIR /home/usr/app
 
-COPY Gemfile home/usr/app/
-COPY Gemfile.lock home/usr/app/
+COPY Gemfile /home/usr/app/
+COPY Gemfile.lock /home/usr/app/
 RUN bundle install
 
 COPY . .'''
