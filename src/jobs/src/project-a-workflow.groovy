@@ -94,7 +94,10 @@ pipeline {
                 }
             }
             post{
-                saucePublisher()
+                script {
+                    saucePublisher()
+                }
+
             }
         }
     }
