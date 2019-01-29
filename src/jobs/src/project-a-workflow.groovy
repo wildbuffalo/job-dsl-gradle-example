@@ -95,12 +95,12 @@ pipeline {
                     }
                 }
             }
-            post{
-                always {
-//                    saucePublisher()
-                }
-
-            }
+//            post{
+//                always {
+////                    saucePublisher()
+//                }
+//
+//            }
         }
     }
 }
