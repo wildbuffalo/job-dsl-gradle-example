@@ -82,8 +82,9 @@ pipeline {
 //                                    sh './node_modules/.bin/nightwatch -e chrome --test tests/guineaPig.js || true'
 //                                    junit 'reports/**'
 //                                    step([$class: 'SauceOnDemandTestPublisher'])
-                                    sh "bundle exec parallel_cucumber features -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"  "
-//                                    | tee test-output.log
+//                                    sh "bundle exec parallel_cucumber features -n $params.threads -f json_pretty --out cucumber.json -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"  "
+                                    sh "bundle exec parallel_cucumber features -n $params.threads -f json_pretty --out cucumber.json -t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1  "
+// | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh 'ls'
 //                                }
