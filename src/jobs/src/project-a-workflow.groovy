@@ -83,7 +83,7 @@ pipeline {
 //                                    junit 'reports/**'
 //                                    step([$class: 'SauceOnDemandTestPublisher'])
 //                                    sh "bundle exec parallel_cucumber features -n $params.threads -f json_pretty --out cucumber.json -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"  "
-                                    sh "cucumber features -n $params.threads -f json_pretty --out cucumber.json -t @buyerTableAddBuyerStatus -o \"env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1\"  "
+                                    sh "cucumber features -n $params.threads -f json_pretty -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1\" -o cucumber.json  "
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh 'ls'
