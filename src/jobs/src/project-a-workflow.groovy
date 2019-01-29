@@ -83,7 +83,7 @@ pipeline {
 //                                    sh './node_modules/.bin/nightwatch -e chrome --test tests/guineaPig.js || true'
 //                                    junit 'reports/**'
 //                                    step([$class: 'SauceOnDemandTestPublisher'])
-                                    sh "bundle exec parallel_cucumber features -n $params.threads -o \"-t @dealworksProjectFromTheGLOPenv=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1\" "
+                                    sh "bundle exec parallel_cucumber features -n $params.threads -o \"-t @dealworksProjectFromTheGLOP env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1\" "
 //                                    | tee test-output.log
 // @$params.tag
 
