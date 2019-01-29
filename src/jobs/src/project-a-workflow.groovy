@@ -111,14 +111,12 @@ pipeline {
 def getDockerfile() {
     writeFile file: 'qa.Dockerfile', text: '''FROM ruby:alpine3.8
 # Create a group and user
-RUN addgroup -S jenkins && adduser -S jenkins -G jenkins
-
+RUN addgroup -g 1000 -S jenkins && \
+    adduser -u 1000 -S username -G jenkins
 RUN apk add --no-cache make gcc g++ vim
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
-# Tell docker that all future commands should run as the appuser user
-USER jenkins
 WORKDIR /home/usr/app
 
 COPY Gemfile /home/usr/app/
