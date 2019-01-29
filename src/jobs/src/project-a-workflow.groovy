@@ -2,10 +2,13 @@
 pipeline {
     agent any
     options {
-        skipDefaultCheckout()
+        sauce('saucelabs')
+        sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true)
         disableConcurrentBuilds()
-        //   ansiColor('xterm')
+        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '5')
+        skipDefaultCheckout true
     }
+
 //    parameters {
 //        string(name: 'REPO', description: 'repository name')
 //        choice(name: 'STAGE', choices: ['develop', 'stage', 'master'], description: 'The branch is respect to the environment accordingly dev to dev env, stage to stage env, master to prod env')
@@ -75,8 +78,8 @@ pipeline {
                         tools_image.inside() {
 
 //                            step([$class: 'DockerBuilderPublisher', cleanImages: true, cleanupWithJenkinsJobDelete: true, cloud: '', dockerFileDirectory: 'qa.Dockerfile', fromRegistry: [], pushCredentialsId: 'mrll-artifactory', pushOnSuccess: true, tagsString: 'dealworks-app/qa:latest'])
-                            sauce('saucelabs') {
-                                sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true) {
+//                            sauce('saucelabs') {
+//                                sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true) {
 //                                    sh './node_modules/.bin/nightwatch -e chrome --test tests/guineaPig.js || true'
 //                                    junit 'reports/**'
 //                                    step([$class: 'SauceOnDemandTestPublisher'])
@@ -88,8 +91,8 @@ pipeline {
 //                                    step([$class: 'SauceOnDemandTestPublisher'])
 //                                    saucePublisher()
                                     saucePublisher()
-                                }
-                            }
+//                                }
+//                            }
                         }
                     }
                 }
