@@ -80,53 +80,21 @@ pipeline {
 //                                    sh './node_modules/.bin/nightwatch -e chrome --test tests/guineaPig.js || true'
 //                                    junit 'reports/**'
 //                                    step([$class: 'SauceOnDemandTestPublisher'])
-                                    sh "bundle exec parallel_cucumber features -n $params.threads -o \"-t @dealworksProjectFromTheGLOP env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1\" "
+                                    sh "bundle exec parallel_cucumber features -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1\" "
 //                                    | tee test-output.log
-//                            @$params.tag
+//
 //                                    junit 'reports/**'
 //                                    sh "ls"
 //                                    step([$class: 'SauceOnDemandTestPublisher'])
 //                                    saucePublisher()
                                     saucePublisher()
                                 }
-
                             }
-//                            step([$class: 'XUnitBuilder',
-//                                  thresholds: [
-//                                          [$class: 'SkippedThreshold', failureThreshold: '0'],
-//                                          // Allow for a significant number of failures
-//                                          // Keeping this threshold so that overwhelming failures are guaranteed
-//                                          //     to still fail the build
-//                                          [$class: 'FailedThreshold', failureThreshold: '10']],
-//                                  tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
-
-
                         }
                     }
                 }
             }
-//            post{
-//                always {
-//                    step([$class: 'XUnitBuilder',
-//                          thresholds: [
-//                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
-//                                  // Allow for a significant number of failures
-//                                  // Keeping this threshold so that overwhelming failures are guaranteed
-//                                  //     to still fail the build
-//                                  [$class: 'FailedThreshold', failureThreshold: '10']],
-//                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
-//
-//                    saucePublisher()
-//                }
-//            }
         }
-//        stage('Publish Result') {
-//            steps {
-//                script {
-//
-//                }
-//            }
-//        }
     }
 }
 def getDockerfile() {
