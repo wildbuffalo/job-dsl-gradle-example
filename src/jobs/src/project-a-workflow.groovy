@@ -97,7 +97,7 @@ pipeline {
             }
             post{
                 always {
-                    saucePublisher()
+//                    saucePublisher()
                 }
 
             }
@@ -109,10 +109,10 @@ def getDockerfile() {
 RUN apk add --no-cache make gcc g++ vim
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
-WORKDIR /usr/app
+WORKDIR /home/usr/app
 
-COPY Gemfile /usr/app/
-COPY Gemfile.lock /usr/app/
+COPY Gemfile home/usr/app/
+COPY Gemfile.lock home/usr/app/
 RUN bundle install
 
 COPY . .'''
