@@ -87,7 +87,7 @@ pipeline {
 //                                    sh "ls"
 //                                    step([$class: 'SauceOnDemandTestPublisher'])
 //                                    saucePublisher()
-
+                                    saucePublisher()
                                 }
 
                             }
@@ -100,7 +100,7 @@ pipeline {
 //                                          [$class: 'FailedThreshold', failureThreshold: '10']],
 //                                  tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
 
-                            saucePublisher()
+
                         }
                     }
                 }
