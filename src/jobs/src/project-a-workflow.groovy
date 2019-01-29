@@ -94,7 +94,7 @@ pipeline {
                 }
             }
             post{
-                script {
+                always {
                     saucePublisher()
                 }
 
