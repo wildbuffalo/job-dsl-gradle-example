@@ -2,10 +2,10 @@
 pipeline {
     agent any
     options {
-        sauce('saucelabs')
-        sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true)
         disableConcurrentBuilds()
         skipDefaultCheckout true
+        sauce('saucelabs')
+        sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true)
     }
 
 //    parameters {
@@ -88,7 +88,7 @@ pipeline {
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh 'ls'
                             sh 'cat cucumber.json'
-                            cucumber fileIncludePattern: '**/*.json', sortingMethod: 'ALPHABETICAL'
+                            cucumber fileIncludePattern: '**/cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                                }
 //                            }
                         }
