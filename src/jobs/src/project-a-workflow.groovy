@@ -88,6 +88,7 @@ pipeline {
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh 'ls'
                             sh 'cat cucumber.json'
+                            cucumber fileIncludePattern: '**/*.json', sortingMethod: 'ALPHABETICAL'
 //                                }
 //                            }
                         }
