@@ -115,6 +115,7 @@ COPY Gemfile /home/usr/app/
 COPY Gemfile.lock /home/usr/app/
 RUN bundle install --path /home/usr/bundle
 
-COPY . .'''
+COPY . .
+USER root'''
 
 }
