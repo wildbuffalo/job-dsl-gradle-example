@@ -5,7 +5,6 @@ pipeline {
         sauce('saucelabs')
         sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true)
         disableConcurrentBuilds()
-        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '5')
         skipDefaultCheckout true
     }
 
@@ -83,9 +82,9 @@ pipeline {
 //                                    sh './node_modules/.bin/nightwatch -e chrome --test tests/guineaPig.js || true'
 //                                    junit 'reports/**'
 //                                    step([$class: 'SauceOnDemandTestPublisher'])
-                                    sh "bundle exec parallel_cucumber features -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1\" "
+                                    sh "bundle exec parallel_cucumber features -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1\" "
 //                                    | tee test-output.log
-// @dealworksProjectFromTheGLOP
+// @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
 
 //                                }
 //                            }
