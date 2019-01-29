@@ -87,6 +87,7 @@ pipeline {
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh 'ls'
+                            sh 'cat cucumber.json'
 //                                }
 //                            }
                         }
