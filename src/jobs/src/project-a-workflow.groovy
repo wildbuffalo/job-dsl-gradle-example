@@ -130,7 +130,7 @@ RUN addgroup --gid ${gid} ${group} \
 RUN apt-get update && apt-get install -y ruby && \
     apt-get clean
 RUN bundle config --global frozen 1
-
+USER jenkins
 WORKDIR /home/jenkins/app
 
 COPY Gemfile /home/jenkins/app/
