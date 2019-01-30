@@ -121,7 +121,6 @@ def getDockerfile() {
 RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 RUN addgroup -g 1000 -S jenkins && \
     adduser -u 1000 -S jenkins -G jenkins
-USER jenkins
 RUN apk add --no-cache make gcc g++ vim
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
