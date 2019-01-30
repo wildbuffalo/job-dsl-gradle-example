@@ -116,13 +116,19 @@ pipeline {
     }
 }
 def getDockerfile() {
-    writeFile file: 'qa.Dockerfile', text: '''FROM ruby:alpine3.8
-# Create a group and user
-RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
-RUN addgroup -g 1000 -S jenkins && \
-    adduser -u 1000 -S jenkins -G jenkins
-RUN apk add --no-cache make gcc g++ vim
-# throw errors if Gemfile has been modified since Gemfile.lock
+    writeFile file: 'qa.Dockerfile', text: '''FROM ubuntu:xenial
+ARG user=jenkins
+ARG group=jenkins
+ARG uid=1000
+ARG gid=1000
+ENV JENKINS_HOME=/home/jenkins
+
+RUN addgroup --gid ${gid} ${group} \
+    && adduser --home ${JENKINS_HOME} --uid ${uid} --gid ${gid} --shell /bin/bash --disabled-password --gecos "" ${user}
+
+
+RUN apt-get update && apt-get install -y ruby && \
+    apt-get clean
 RUN bundle config --global frozen 1
 
 WORKDIR /home/jenkins/app
@@ -134,3 +140,19 @@ RUN bundle install --path /home/jenkins/bundle
 COPY . .'''
 
 }
+//writeFile file: 'qa.Dockerfile', text: '''FROM ruby:alpine3.8
+//# Create a group and user
+//RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
+//RUN addgroup -g 1000 -S jenkins && \
+//    adduser -u 1000 -S jenkins -G jenkins
+//RUN apk add --no-cache make gcc g++ vim
+//# throw errors if Gemfile has been modified since Gemfile.lock
+//RUN bundle config --global frozen 1
+//
+//WORKDIR /home/jenkins/app
+//
+//COPY Gemfile /home/jenkins/app/
+//COPY Gemfile.lock /home/jenkins/app/
+//RUN bundle install --path /home/jenkins/bundle
+//
+//COPY . .'''
