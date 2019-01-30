@@ -125,11 +125,11 @@ RUN apk add --no-cache make gcc g++ vim
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
-WORKDIR /home/usr/app
+WORKDIR /home/jenkins/app
 
-COPY Gemfile /home/usr/app/
-COPY Gemfile.lock /home/usr/app/
-RUN bundle install --path /home/usr/bundle
+COPY Gemfile /home/jenkins/app/
+COPY Gemfile.lock /home/jenkins/app/
+RUN bundle install --path /home/jenkins/bundle
 
 COPY . .'''
 
