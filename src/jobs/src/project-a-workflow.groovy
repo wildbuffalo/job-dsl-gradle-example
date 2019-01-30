@@ -116,7 +116,7 @@ pipeline {
     }
 }
 def getDockerfile() {
-    writeFile file: 'qa.Dockerfile', text: '''FROM ubuntu:xenial
+    writeFile file: 'qa.Dockerfile', text: '''FROM drecom/ubuntu-ruby
 ARG user=jenkins
 ARG group=jenkins
 ARG uid=1000
@@ -126,10 +126,6 @@ ENV JENKINS_HOME=/home/jenkins
 RUN addgroup --gid ${gid} ${group} \
     && adduser --home ${JENKINS_HOME} --uid ${uid} --gid ${gid} --shell /bin/bash --disabled-password --gecos "" ${user}
 
-
-RUN apt-get update && apt-get install -y ruby && \
-    apt-get clean
-RUN gem install bundle
 RUN bundle config --global frozen 1
 USER jenkins
 WORKDIR /home/jenkins/app
