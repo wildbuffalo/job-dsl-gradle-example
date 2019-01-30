@@ -136,7 +136,7 @@ WORKDIR /home/jenkins/app
 
 COPY Gemfile /home/jenkins/app/
 COPY Gemfile.lock /home/jenkins/app/
-RUN bundle install --path /home/jenkins/bundle
+RUN bundle install 
 
 COPY . .'''
 
