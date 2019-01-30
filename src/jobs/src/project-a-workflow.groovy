@@ -89,7 +89,7 @@ pipeline {
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh "ls"
-
+                            sh "/home/usr/app/report && ls"
 //                            sh 'cat cucumber.json'
 //                            cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                                }
