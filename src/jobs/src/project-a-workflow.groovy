@@ -82,16 +82,16 @@ pipeline {
 //                                    sh './node_modules/.bin/nightwatch -e chrome --test tests/guineaPig.js || true'
 //
 //                                    sh "bundle exec parallel_cucumber features -n $params.threads -f json_pretty --out cucumber.json -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"  "
-                            sh "cd /home/usr/app &&\
+                            sh "cd /home/jenkins/app/ &&\
                                         ls"
-                            sh "cd /home/usr/app &&" +
+                            sh "cd /home/jenkins/app/ &&" +
                                     "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\"  "
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh "ls"
-                            sh "/home/usr/app && ls"
+                            sh "/home/jenkins/app/ && ls"
 //                            sh 'cat cucumber.json'
-                            cucumber fileIncludePattern: '/home/usr/app/cucumber.json', sortingMethod: 'ALPHABETICAL'
+                            cucumber fileIncludePattern: '/home/jenkins/app/cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                                }
 //                            }
                         }
