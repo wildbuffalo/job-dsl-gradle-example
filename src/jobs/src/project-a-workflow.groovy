@@ -86,11 +86,11 @@ pipeline {
                             sh "cd /home/usr/app &&\
                                         ls"
                             sh "cd /home/usr/app &&" +
-                                    "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f junit --out $PWD/report/ -c --retry 1\"  "
+                                    "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f junit --out $WORKSPACE/report/ -c --retry 1\"  "
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh "ls"
-                            junit "$PWDreports/**"
+                            junit "$WORKSPACE/reports/**"
                             step([$class: 'SauceOnDemandTestPublisher'])
 //                            sh 'cat cucumber.json'
 //                            cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
