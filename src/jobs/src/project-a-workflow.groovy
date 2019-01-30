@@ -127,8 +127,9 @@ RUN addgroup --gid ${gid} ${group} \
     && adduser --home ${JENKINS_HOME} --uid ${uid} --gid ${gid} --shell /bin/bash --disabled-password --gecos "" ${user}
 
 
-RUN apt-get update && apt-get install -y ruby-full && \
+RUN apt-get update && apt-get install -y ruby && \
     apt-get clean
+RUN gem install bundle
 RUN bundle config --global frozen 1
 USER jenkins
 WORKDIR /home/jenkins/app
