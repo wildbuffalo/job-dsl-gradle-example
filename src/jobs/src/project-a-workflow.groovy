@@ -85,11 +85,12 @@ pipeline {
 //                                    sh "bundle exec parallel_cucumber features -n $params.threads -f json_pretty --out cucumber.json -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"  "
                             sh "cd /home/usr/app &&\
                                         ls"
-                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f junit --out report/ -c --retry 1\"  "
+                            sh "cd /home/usr/app &&" +
+                                    "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f junit --out report/ -c --retry 1\"  "
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh "ls"
-                            junit 'reports/**'
+                            junit '/home/usr/app/reports/**'
                             step([$class: 'SauceOnDemandTestPublisher'])
 //                            sh 'cat cucumber.json'
 //                            cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
