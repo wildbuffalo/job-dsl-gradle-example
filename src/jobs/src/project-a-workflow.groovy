@@ -80,18 +80,16 @@ pipeline {
 //                            sauce('saucelabs') {
 //                                sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true) {
 //                                    sh './node_modules/.bin/nightwatch -e chrome --test tests/guineaPig.js || true'
-//                                    junit 'reports/**'
-//                                    step([$class: 'SauceOnDemandTestPublisher'])
+//
 //                                    sh "bundle exec parallel_cucumber features -n $params.threads -f json_pretty --out cucumber.json -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"  "
                             sh "cd /home/usr/app &&\
                                         ls"
                             sh "cd /home/usr/app &&" +
-                                    "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f junit --out $WORKSPACE/report/ -c --retry 1\"  "
+                                    "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f junit --out report/ -c --retry 1\"  "
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh "ls"
-                            junit "$WORKSPACE/reports/**"
-                            step([$class: 'SauceOnDemandTestPublisher'])
+
 //                            sh 'cat cucumber.json'
 //                            cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                                }
@@ -100,11 +98,19 @@ pipeline {
                     }
                 }
             }
-            post{
+            post {
                 always {
+                    step([$class: 'XUnitBuilder',
+                          thresholds: [
+                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
+                                  // Allow for a significant number of failures
+                                  // Keeping this threshold so that overwhelming failures are guaranteed
+                                  //     to still fail the build
+                                  [$class: 'FailedThreshold', failureThreshold: '10']],
+                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
+
                     saucePublisher()
                 }
-
             }
         }
     }
@@ -112,8 +118,10 @@ pipeline {
 def getDockerfile() {
     writeFile file: 'qa.Dockerfile', text: '''FROM ruby:alpine3.8
 # Create a group and user
+RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 RUN addgroup -g 1000 -S jenkins && \
-    adduser -u 1000 -S username -G jenkins
+    adduser -u 1000 -S jenkins -G jenkins
+USER jenkins
 RUN apk add --no-cache make gcc g++ vim
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
