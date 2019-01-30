@@ -89,29 +89,29 @@ pipeline {
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh "ls"
-                            sh "/home/usr/app/report && ls"
+                            sh "/home/usr/app && ls"
 //                            sh 'cat cucumber.json'
-//                            cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
+                            cucumber fileIncludePattern: '/home/usr/app/cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                                }
 //                            }
                         }
                     }
                 }
             }
-            post {
-                always {
-                    step([$class: 'XUnitBuilder',
-                          thresholds: [
-                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
-                                  // Allow for a significant number of failures
-                                  // Keeping this threshold so that overwhelming failures are guaranteed
-                                  //     to still fail the build
-                                  [$class: 'FailedThreshold', failureThreshold: '10']],
-                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
-
-                    saucePublisher()
-                }
-            }
+//            post {
+//                always {
+//                    step([$class: 'XUnitBuilder',
+//                          thresholds: [
+//                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
+//                                  // Allow for a significant number of failures
+//                                  // Keeping this threshold so that overwhelming failures are guaranteed
+//                                  //     to still fail the build
+//                                  [$class: 'FailedThreshold', failureThreshold: '10']],
+//                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
+//
+//                    saucePublisher()
+//                }
+//            }
         }
     }
 }
