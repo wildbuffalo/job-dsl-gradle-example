@@ -127,13 +127,13 @@ RUN addgroup --gid ${gid} ${group} \
     && adduser --home ${JENKINS_HOME} --uid ${uid} --gid ${gid} --shell /bin/bash --disabled-password --gecos "" ${user}
 
 RUN bundle config --global frozen 1
-
+USER jenkins
 WORKDIR /home/jenkins/app
 
 COPY Gemfile /home/jenkins/app/
 COPY Gemfile.lock /home/jenkins/app/
 RUN bundle install --path /home/jenkins/bundle
-USER jenkins
+
 COPY . .'''
 
 }
