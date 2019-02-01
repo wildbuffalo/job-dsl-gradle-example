@@ -70,7 +70,8 @@ pipeline {
                         sh  'ls'
                         sh 'cat cucumber.json'
                         cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
-                        cucumberSlackSend channel: 'ds1-marketing-qa', json: 'cucumber.json'
+                        cucumberSlackSend channel: 'alrt-ds1-marketing'
+//                        , json: 'cucumber.json'
                     }
 
                 }
