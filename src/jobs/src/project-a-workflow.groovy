@@ -73,6 +73,7 @@ pipeline {
                             sh "cd /home/jenkins/app/ && ls"
                             sh 'cat cucumber.json'
                             cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
+                            sh 'ls'
 //                                }
 //                            }
                         }
