@@ -70,8 +70,8 @@ pipeline {
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh "ls"
-                            sh "cd /home/jenkins/app/ && ls"
-                            sh 'cat cucumber.json'
+//                            sh "cd /home/jenkins/app/ && ls"
+//                            sh 'cat cucumber.json'
                             cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
                             sh 'ls'
 //                                }
@@ -82,7 +82,7 @@ pipeline {
             }
             post {
                 always {
-                    cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
+                    cucumberSlackSend channel: '@zeng liu', json: 'cucumber.json'
                 }
             }
         }
