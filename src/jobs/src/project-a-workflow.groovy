@@ -72,6 +72,7 @@ pipeline {
                         cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                        cucumberSlackSend channel: 'alrt-ds1-marketing'
 //                        , json: 'cucumber.json'
+                        saucePublisher()
                         sh 'printenv'
                     }
 
