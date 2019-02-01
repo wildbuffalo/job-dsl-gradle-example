@@ -74,7 +74,7 @@ pipeline {
 //                            sh 'cat cucumber.json'
 
                             sh 'ls'
-                            cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
+
 //                                }
 //                            }
                         }
@@ -83,9 +83,13 @@ pipeline {
             }
             post {
                 always {
-                    sh  'ls'
-                    sh 'cat cucumber.json'
-                    cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
+                    script {
+                        sh  'ls'
+                        sh 'cat cucumber.json'
+                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
+                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
+                    }
+
                 }
             }
         }
