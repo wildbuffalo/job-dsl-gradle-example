@@ -72,7 +72,7 @@ pipeline {
                                     sh "ls"
 //                            sh "cd /home/jenkins/app/ && ls"
 //                            sh 'cat cucumber.json'
-                            cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
+
                             sh 'ls'
                             cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
 //                                }
@@ -85,6 +85,7 @@ pipeline {
                 always {
                     sh  'ls'
                     sh 'cat cucumber.json'
+                    cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
                 }
             }
         }
