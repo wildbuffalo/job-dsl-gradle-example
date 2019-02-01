@@ -7,21 +7,6 @@ pipeline {
 //        sauce('saucelabs')
 //        sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true)
     }
-
-//    parameters {
-//        string(name: 'REPO', description: 'repository name')
-//        choice(name: 'STAGE', choices: ['develop', 'stage', 'master'], description: 'The branch is respect to the environment accordingly dev to dev env, stage to stage env, master to prod env')
-//        string(name: 'VERSION', defaultValue: 'latest', description: 'pick your version from the artifactory')
-//    }
-//    environment {
-//        JFROG = credentials("mrll-artifactory")
-//        CF_DOCKER_PASSWORD = "$JFROG_PSW"
-//        PCF = credentials("svc-inf-jenkins")
-//        REPO = "$params.REPO"
-//        STAGE = "$params.STAGE"
-//        VERSION = "$params.VERSION"
-//
-//    }
     post {
         cleanup {
             cleanWs()
@@ -41,9 +26,7 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            //  agent any
             steps {
-//                git url: "https://github.com/MerrillCorporation/dealworks-app.git"
                 checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: 'https://github.com/MerrillCorporation/dealworks-ui-tests.git']]])
                 script {
                     env.gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
@@ -66,7 +49,7 @@ pipeline {
                         tools_image.inside() {
                             sh "cd /home/jenkins/app/ &&\
                                         ls"
-                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
+                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh "ls"
@@ -87,7 +70,7 @@ pipeline {
                         sh  'ls'
                         sh 'cat cucumber.json'
                         cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
-                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
+                        cucumberSlackSend channel: 'ds1-marketing-qa', json: 'cucumber.json'
                     }
 
                 }
