@@ -36,19 +36,16 @@ job("$basePath/QA-acgg") {
 //    }
 }
 pipelineJob("$basePath/QA-dealworks-app-STAGE") {
+    concurrentBuild(false)
     definition {
         cps {
 // Enables the Groovy sandbox for the script.
             sandbox()
 // Sets the workflow DSL script.
-            script('src/jobs/src/project-a-workflow.groovy')
+            script('src/jobs/src/qa-dealworks.groovy')
         }
-//            scriptPath('src/jobs/src/project-a-workflow.groovy')
+//            scriptPath('src/jobs/src/qa-dealworks.groovy')
         }
-
-    triggers {
-        githubPush()
-    }
     parameters {
         stringParam("env", "stage", "Environment Variable")
         stringParam("tag", "smoke","")
@@ -58,6 +55,7 @@ pipelineJob("$basePath/QA-dealworks-app-STAGE") {
 }
 
 pipelineJob("$basePath/QA-dealworks-app-DEV") {
+    concurrentBuild(false)
     definition {
         cpsScm {
             scm {
@@ -70,11 +68,11 @@ pipelineJob("$basePath/QA-dealworks-app-DEV") {
                     extensions {
                         cleanAfterCheckout()
                     }
-//                    scriptPath('src/jobs/src/project-a-workflow.groovy')
+//                    scriptPath('src/jobs/src/qa-dealworks.groovy')
                 }
 //                github('wildbuffalo/getting-stated-nodejs')
             }
-            scriptPath('src/jobs/src/project-a-workflow.groovy')
+            scriptPath('src/jobs/src/qa-dealworks.groovy')
         }
     }
     triggers {

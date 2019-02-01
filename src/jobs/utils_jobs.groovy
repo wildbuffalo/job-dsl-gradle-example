@@ -17,7 +17,7 @@ pipelineJob("$basePath/deployment") {
     }
     definition {
 //        cps {
-//            script(readFileFromWorkspace('src/jobs/src/project-a-workflow.groovy'))
+//            script(readFileFromWorkspace('src/jobs/src/qa-dealworks.groovy'))
 //            sandbox()
 //        }
         cpsScm {
@@ -32,7 +32,7 @@ pipelineJob("$basePath/deployment") {
                         cleanAfterCheckout()
 //                        relativeTargetDirectory('repo1')
                     }
-//                    scriptPath('src/jobs/src/project-a-workflow.groovy')
+//                    scriptPath('src/jobs/src/qa-dealworks.groovy')
                 }
 //                github('wildbuffalo/getting-stated-nodejs')
             }

@@ -23,17 +23,10 @@ pipeline {
             }
         }
     }
-
     stages {
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: 'https://github.com/MerrillCorporation/dealworks-ui-tests.git']]])
-                script {
-                    env.gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-                    env.getRepo = sh(returnStdout: true, script: "basename -s .git `git config --get remote.origin.url`").trim()
-                    sh 'printenv'
-
-                }
             }
         }
         stage('Build') {
@@ -49,7 +42,7 @@ pipeline {
                         tools_image.inside() {
                             sh "cd /home/jenkins/app/ &&\
                                         ls"
-                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
+                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                         }
@@ -112,22 +105,6 @@ COPY . .'''
 //    && adduser --home ${JENKINS_HOME} --uid ${uid} --gid ${gid} --shell /bin/bash --disabled-password --gecos "" ${user}
 //
 //RUN bundle config --global frozen 1
-//WORKDIR /home/jenkins/app
-//
-//COPY Gemfile /home/jenkins/app/
-//COPY Gemfile.lock /home/jenkins/app/
-//RUN bundle install --path /home/jenkins/bundle
-//
-//COPY . .'''
-//writeFile file: 'qa.Dockerfile', text: '''FROM ruby:alpine3.8
-//# Create a group and user
-//RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
-//RUN addgroup -g 1000 -S jenkins && \
-//    adduser -u 1000 -S jenkins -G jenkins
-//RUN apk add --no-cache make gcc g++ vim
-//# throw errors if Gemfile has been modified since Gemfile.lock
-//RUN bundle config --global frozen 1
-//
 //WORKDIR /home/jenkins/app
 //
 //COPY Gemfile /home/jenkins/app/
