@@ -88,7 +88,7 @@ pipeline {
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh "ls"
-                            sh "/home/jenkins/app/ && ls"
+                            sh "cd /home/jenkins/app/ && ls"
 //                            sh 'cat cucumber.json'
                             cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                                }
