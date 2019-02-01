@@ -6,7 +6,7 @@ folder(basePath) {
 }
 
 job("$basePath/QA-acgg") {
-    concurrentBuild(false)
+    concurrentBuild(true)
     logRotator(-1, 1)
     scm {
         git {
@@ -28,9 +28,9 @@ job("$basePath/QA-acgg") {
 //    environmentVariables {
 //        scriptFile('Jenkinsfile')
 //    }
-    triggers {
-        githubPush()
-    }
+//    triggers {
+//        githubPush()
+//    }
 //    steps {
 //        gradle('clean build')
 //    }
