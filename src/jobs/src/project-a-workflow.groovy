@@ -54,17 +54,6 @@ pipeline {
             }
         }
         stage('Build') {
-//            agent {
-//                dockerfile {
-//
-//                    additionalBuildArgs '-t dealworks-app/qa:latest'
-//                    additionalBuildArgs '--pull'
-//                    additionalBuildArgs '--rm'
-//                    filename 'qa.Dockerfile'
-//                    registryCredentialsId 'mrll-artifactory'
-//                    registryUrl 'https://merrillcorp-dealworks.jfrog.io'
-//                }
-//            }
             steps {
                 script {
                     sh 'printenv'
@@ -75,13 +64,6 @@ pipeline {
                         def dockerfile = './qa.Dockerfile'
                         tools_image = docker.build("dealworks-app/qa:latest", "--pull --rm -f ${dockerfile} .")
                         tools_image.inside() {
-
-//                            step([$class: 'DockerBuilderPublisher', cleanImages: true, cleanupWithJenkinsJobDelete: true, cloud: '', dockerFileDirectory: 'qa.Dockerfile', fromRegistry: [], pushCredentialsId: 'mrll-artifactory', pushOnSuccess: true, tagsString: 'dealworks-app/qa:latest'])
-//                            sauce('saucelabs') {
-//                                sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true) {
-//                                    sh './node_modules/.bin/nightwatch -e chrome --test tests/guineaPig.js || true'
-//
-//                                    sh "bundle exec parallel_cucumber features -n $params.threads -f json_pretty --out cucumber.json -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"  "
                             sh "cd /home/jenkins/app/ &&\
                                         ls"
                             sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
@@ -89,7 +71,7 @@ pipeline {
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh "ls"
                             sh "cd /home/jenkins/app/ && ls"
-//                            sh 'cat cucumber.json'
+                            sh 'cat cucumber.json'
                             cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                                }
 //                            }
@@ -97,20 +79,11 @@ pipeline {
                     }
                 }
             }
-//            post {
-//                always {
-//                    step([$class: 'XUnitBuilder',
-//                          thresholds: [
-//                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
-//                                  // Allow for a significant number of failures
-//                                  // Keeping this threshold so that overwhelming failures are guaranteed
-//                                  //     to still fail the build
-//                                  [$class: 'FailedThreshold', failureThreshold: '10']],
-//                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
-//
-//                    saucePublisher()
-//                }
-//            }
+            post {
+                always {
+                    cucumberSlackSend channel: 'zeng liu', json: 'cucumber.json'
+                }
+            }
         }
     }
 }
