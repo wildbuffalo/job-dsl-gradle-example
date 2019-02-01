@@ -49,7 +49,7 @@ pipeline {
                         tools_image.inside() {
                             sh "cd /home/jenkins/app/ &&\
                                         ls"
-                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
+                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @buyerTableAddBuyerStatus env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
 // | tee test-output.log
 // @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                                     sh "ls"
@@ -72,6 +72,7 @@ pipeline {
                         cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
                         cucumberSlackSend channel: 'alrt-ds1-marketing'
 //                        , json: 'cucumber.json'
+                        sh 'printenv'
                     }
 
                 }
