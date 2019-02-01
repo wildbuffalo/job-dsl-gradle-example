@@ -6,6 +6,7 @@ folder(basePath) {
 }
 
 job("$basePath/QA-acgg") {
+    concurrentBuild(false)
     logRotator(-1, 1)
     scm {
         git {
