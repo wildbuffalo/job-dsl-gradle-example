@@ -81,7 +81,7 @@ pipeline {
             }
             post {
                 always {
-                    cucumberSlackSend channel: 'zeng liu', json: 'cucumber.json'
+                    cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
                 }
             }
         }
