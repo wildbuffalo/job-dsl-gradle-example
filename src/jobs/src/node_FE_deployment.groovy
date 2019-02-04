@@ -60,9 +60,6 @@ pipeline {
         stage('Push to PCF') {
             steps {
                 runDockerfile()
-                script {
-
-                }
             }
         }
     }
