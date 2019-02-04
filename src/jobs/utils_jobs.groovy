@@ -44,7 +44,7 @@ pipelineJob("$basePath/deployment") {
 //    }
 }
 
-pipelineJob("$basePath/dealworks_depoyment") {
+pipelineJob("$basePath/deploy") {
     parameters {
         choiceParam('BRANCH_NAME', ['develop', 'stage', 'master'], 'develop = dev, stage = stage, master = prod')
         stringParam('REPO', 'dealworks-app')
