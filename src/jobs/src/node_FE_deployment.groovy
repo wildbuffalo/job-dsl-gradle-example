@@ -81,19 +81,19 @@ def runDockerfile() {
         docker_pcf_src = docker.build("docker_pcf_src", "--pull --rm -f ${dockerfile} .")
         docker_pcf_src.inside() {
             if (BRANCH_NAME == 'master') {
-                sh "cd /usr/src/app &&\
+                sh "cd /home/jenkins/src &&\
                     ls &&\
                     pwd &&\
                     cf login -a https://api.sys.us2.prodg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s prodg -o us2-datasiteone &&\
                     cf zero-downtime-push $REPO-prod -f ./devops/manifest-prod.yml"
             } else if (BRANCH_NAME == 'stage') {
-                sh "cd /usr/src/app &&\
+                sh "cd /home/jenkins/src &&\
                     ls &&\
                     pwd &&\
                     cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s stageg -o us2-datasiteone &&\
                     cf zero-downtime-push $REPO-stage -f ./devops/manifest-stage.yml"
             } else {
-                sh "cd /usr/src/app &&\
+                sh "cd /home/jenkins/src &&\
                     ls &&\
                     pwd &&\
                     cf login -a https://api.sys.us2.devg.foundry.mrll.com -u $PCF_USR -p $PCF_PSW -s devg -o us2-datasiteone &&\
