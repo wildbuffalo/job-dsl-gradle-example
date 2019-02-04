@@ -33,24 +33,7 @@ job("$basePath/QA-acgg") {
 //        gradle('clean build')
 //    }
 }
-pipelineJob("$basePath/QA-dealworks-app-STAGE") {
-    concurrentBuild(false)
-    definition {
-        cps {
-// Enables the Groovy sandbox for the script.
-            sandbox()
-// Sets the workflow DSL script.
-            script(readFileFromWorkspace('src/jobs/src/qa-dealworks.groovy'))
-        }
-//            scriptPath('src/jobs/src/qa-dealworks.groovy')
-        }
-    parameters {
-        stringParam("env", "stage", "Environment Variable")
-        stringParam("tag", "smoke","")
-        stringParam("threads", "35","")
-        stringParam("system", "windows","")
-    }
-}
+
 
 pipelineJob("$basePath/QA-dealworks-app-DEV") {
     concurrentBuild(false)
@@ -66,9 +49,7 @@ pipelineJob("$basePath/QA-dealworks-app-DEV") {
                     extensions {
                         cleanAfterCheckout()
                     }
-//                    scriptPath('src/jobs/src/qa-dealworks.groovy')
                 }
-//                github('wildbuffalo/getting-stated-nodejs')
             }
             scriptPath('src/jobs/src/qa-dealworks.groovy')
         }
@@ -78,6 +59,40 @@ pipelineJob("$basePath/QA-dealworks-app-DEV") {
 //    }
     parameters {
         stringParam("env", "dev", "Environment Variable")
+        stringParam("tag", "smoke","")
+        stringParam("threads", "35","")
+        stringParam("system", "windows","")
+    }
+}
+pipelineJob("$basePath/QA-dealworks-app-STAGE") {
+    concurrentBuild(false)
+    definition {
+        cps {
+// Enables the Groovy sandbox for the script.
+            sandbox()
+// Sets the workflow DSL script.
+            script(readFileFromWorkspace('src/jobs/src/qa-dealworks.groovy'))
+        }
+    }
+    parameters {
+        stringParam("env", "stage", "Environment Variable")
+        stringParam("tag", "smoke","")
+        stringParam("threads", "35","")
+        stringParam("system", "windows","")
+    }
+}
+pipelineJob("$basePath/QA-dealworks-app-PROD") {
+    concurrentBuild(false)
+    definition {
+        cps {
+// Enables the Groovy sandbox for the script.
+            sandbox()
+// Sets the workflow DSL script.
+            script(readFileFromWorkspace('src/jobs/src/qa-dealworks.groovy'))
+        }
+    }
+    parameters {
+        stringParam("env", "prod", "Environment Variable")
         stringParam("tag", "smoke","")
         stringParam("threads", "35","")
         stringParam("system", "windows","")
