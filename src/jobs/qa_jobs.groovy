@@ -40,9 +40,9 @@ pipelineJob("$basePath/QA-dealworks-app-STAGE") {
 // Enables the Groovy sandbox for the script.
             sandbox()
 // Sets the workflow DSL script.
-//            script('src/jobs/src/qa-dealworks.groovy')
+            script(readFileFromWorkspace('src/jobs/src/qa-dealworks.groovy'))
         }
-            scriptPath('src/jobs/src/qa-dealworks.groovy')
+//            scriptPath('src/jobs/src/qa-dealworks.groovy')
         }
     parameters {
         stringParam("env", "stage", "Environment Variable")
