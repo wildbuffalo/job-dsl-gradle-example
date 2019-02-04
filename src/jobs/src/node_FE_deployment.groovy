@@ -72,8 +72,8 @@ def getDockerfile() {
             "RUN npm run build\n" +
             "FROM merrillcorp-dealworks.jfrog.io/tools:latest\n" +
 //            "COPY --from=source /usr/src/app /home/jenkins/src/"
-            "COPY --from=source /usr/src/app/dist /home/jenkins/src/\n" +
-            "COPY --from=source /usr/src/app/devops /home/jenkins/src/devops/"
+            "COPY --from=source /usr/src/app/dist /home/jenkins/src/dist\n" +
+            "COPY --from=source /usr/src/app/devops /home/jenkins/src/devops"
 }
 def runDockerfile() {
     docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
