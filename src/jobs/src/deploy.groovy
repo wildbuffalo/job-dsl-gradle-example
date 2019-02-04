@@ -58,7 +58,7 @@ pipeline {
                 script {
                     docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
                         def dockerfile = './devops/pcf.Dockerfile'
-                        docker_pcf_src = docker.build("docker_pcf_src", "-f ${dockerfile} .")
+                        docker_pcf_src = docker.build("docker_pcf_src", "--pull --rm -f ${dockerfile} .")
                         docker_pcf_src.inside() {
                             dir("first-stash") {
                                 unstash 'app'

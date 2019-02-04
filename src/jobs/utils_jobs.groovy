@@ -44,3 +44,19 @@ pipelineJob("$basePath/deployment") {
 //    }
 }
 
+pipelineJob("$basePath/dealworks_depoyment") {
+    parameters {
+        choiceParam('BRANCH_NAME', ['develop', 'stage', 'master'], 'develop = dev, stage = stage, master = prod')
+        stringParam('REPO', 'dealworks-app')
+        stringParam('VERSION', '')
+//        choiceParam('Space', ['devg', 'stageg', 'prod'], 'PCF spaces')
+//        choiceParam('Manifest', ['manifest-dev', 'manifest-stage', 'manifest-prod'], 'PCF manifest file')
+
+    }
+    definition {
+        cps {
+            script(readFileFromWorkspace('src/jobs/src/node_FE_deployment.groovy'))
+            sandbox()
+        }
+    }
+}

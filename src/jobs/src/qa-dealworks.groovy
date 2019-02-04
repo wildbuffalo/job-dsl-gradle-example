@@ -1,3 +1,4 @@
+package src
 @Library('ds1-marketing-jenkins-library@master') _
 pipeline {
     agent any
