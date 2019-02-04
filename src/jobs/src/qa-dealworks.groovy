@@ -62,13 +62,13 @@ pipeline {
                 }
                 success {
 
-                    slackSend color: "good", message: "Job: <${env.BUILD_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was successful"
+                    slackSend color: "good", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was successful"
                 }
                 unstable {
-                    slackSend color: "danger", message: "Job: <${env.BUILD_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was unstable"
+                    slackSend color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was unstable"
                 }
                 failure {
-                    slackSend color: "danger", message: "Job: <${env.BUILD_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was failed"
+                    slackSend color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was failed"
                 }
             }
         }

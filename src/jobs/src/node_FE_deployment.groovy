@@ -11,15 +11,6 @@ pipeline {
         skipDefaultCheckout()
     }
     post {
-        success {
-            slackSend color: "good", message: "Job: <${env.BUILD_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was successful"
-        }
-        unstable {
-            slackSend color: "danger", message: "Job: <${env.BUILD_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was unstable"
-        }
-        failure {
-            slackSend color: "danger", message: "Job: <${env.BUILD_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was failed"
-        }
         cleanup {
             // clean the current workspace
             cleanWs()
