@@ -75,9 +75,9 @@ pipelineJob("$basePath/QA-dealworks-app-DEV") {
             scriptPath('src/jobs/src/qa-dealworks.groovy')
         }
     }
-    triggers {
-        githubPush()
-    }
+//    triggers {
+//        githubPush()
+//    }
     parameters {
         stringParam("env", "dev", "Environment Variable")
         stringParam("tag", "smoke","")

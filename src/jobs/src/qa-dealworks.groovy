@@ -43,8 +43,6 @@ pipeline {
                             sh "cd /home/jenkins/app/ &&\
                                         ls"
                             sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
-// | tee test-output.log
-// @dealworksProjectFromTheGLOP  fail @buyerTableAddBuyerStatus @$params.tag
                         }
                     }
                 }
@@ -94,21 +92,3 @@ RUN bundle install --path /home/jenkins/bundle
 COPY . .'''
 
 }
-//writeFile file: 'qa.Dockerfile', text: '''FROM drecom/ubuntu-ruby
-//ARG user=jenkins
-//ARG group=jenkins
-//ARG uid=1000
-//ARG gid=1000
-//ENV JENKINS_HOME=/home/jenkins
-//
-//RUN addgroup --gid ${gid} ${group} \
-//    && adduser --home ${JENKINS_HOME} --uid ${uid} --gid ${gid} --shell /bin/bash --disabled-password --gecos "" ${user}
-//
-//RUN bundle config --global frozen 1
-//WORKDIR /home/jenkins/app
-//
-//COPY Gemfile /home/jenkins/app/
-//COPY Gemfile.lock /home/jenkins/app/
-//RUN bundle install --path /home/jenkins/bundle
-//
-//COPY . .'''
