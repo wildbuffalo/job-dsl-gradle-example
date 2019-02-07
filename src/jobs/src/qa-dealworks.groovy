@@ -44,7 +44,7 @@ pipeline {
                             sh "cd /home/jenkins/app/ &&\
                                         ls"
 //                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
-                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f summary -f json --out cucumber.json --retry 1\""
+                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"| tail -n +2| head -n -2| tee cucumber.json "
 
                         }
                     }
