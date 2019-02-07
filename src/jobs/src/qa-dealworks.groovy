@@ -6,7 +6,7 @@ pipeline {
         disableConcurrentBuilds()
         skipDefaultCheckout true
         sauce('saucelabs')
-        sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true)
+        sauceconnect(options: '', sauceConnectPath: '', verboseLogging: true)
     }
     post {
         cleanup {
@@ -44,7 +44,7 @@ pipeline {
                             sh "cd /home/jenkins/app/ &&\
                                         ls"
 //                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
-                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"| tee cucumber.json"
+                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"| tail -n +1 | tee cucumber.json"
 
                         }
                     }
