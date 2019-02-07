@@ -5,8 +5,8 @@ pipeline {
     options {
         disableConcurrentBuilds()
         skipDefaultCheckout true
-//        sauce('saucelabs')
-//        sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true)
+        sauce('saucelabs')
+        sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true)
     }
     post {
         cleanup {
@@ -44,8 +44,8 @@ pipeline {
                             sh "cd /home/jenkins/app/ &&\
                                         ls"
 //                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
-                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins --retry 1\"| tee test-output.log"
-                            sh "ruby ./parse_console_log.rb"
+                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"| tee cucumber.json"
+
                         }
                     }
                 }
@@ -55,7 +55,7 @@ pipeline {
                     script {
                         sh  'ls'
 //                        sh 'cat cucumber.json'
-//                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
+                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
                         saucePublisher()
 //                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'QA'])
