@@ -45,7 +45,7 @@ pipeline {
                             sh "cd /home/jenkins/app/ &&\
                                         ls"
 //                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
-                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"| tail -n +2| head -n -2| tee cucumber.json "
+                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --retry 1\"| tail -n +2| head -n -2 > cucumber.json "
 
                         }
                     }
@@ -56,7 +56,7 @@ pipeline {
                     script {
                         sh  'ls'
                         saucePublisher()
-//                        sh 'cat cucumber.json'
+                        sh 'cat cucumber.json'
                         cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
 
