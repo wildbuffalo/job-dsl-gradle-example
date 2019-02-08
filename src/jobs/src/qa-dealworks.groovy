@@ -48,6 +48,7 @@ pipeline {
                             sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f pretty -f json --out cucumber.json --retry 1\" | tee test-output.log"
                             saucePublisher()
                             sh "ruby ./parse_console_log.rb"
+                            sh "cat FailedTCDeatils.html"
                         }
                     }
                 }
