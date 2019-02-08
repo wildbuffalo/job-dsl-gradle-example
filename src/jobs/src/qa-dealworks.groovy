@@ -6,8 +6,8 @@ pipeline {
         disableConcurrentBuilds()
         skipDefaultCheckout true
         sauce('saucelabs')
-//        sauceconnect(options: '', sauceConnectPath: '', verboseLogging: true)
-        sauceconnect(options: '', sauceConnectPath: '', useLatestSauceConnect: true,verboseLogging: true)
+        sauceconnect(options: '', sauceConnectPath: '', verboseLogging: true)
+//        sauceconnect(options: '', sauceConnectPath: '', useLatestSauceConnect: true, useGeneratedTunnelIdentifier: true ,verboseLogging: true)
     }
     post {
         cleanup {
