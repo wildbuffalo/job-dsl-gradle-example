@@ -55,6 +55,8 @@ pipeline {
             }
             post {
                 always {
+                    junit 'junit/**'
+                    step([$class: 'SauceOnDemandTestPublisher'])
                     script {
                         sh  'ls'
 //                        step([$class: 'XUnitBuilder',
@@ -66,7 +68,7 @@ pipeline {
 //                                      [$class: 'FailedThreshold', failureThreshold: '10']],
 //                              tools: [[$class: 'JUnitType', pattern: 'junit/**']]])
 //                        xunit testDataPublishers: tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
-                        xunit([JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)])
+//                        xunit([JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)])
 //                          step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher', jobVisibility: 'public']], testResults: 'junit/*.xml'])
 //                        saucePublisher()
 //                        cucumber 'cucumber.json'
