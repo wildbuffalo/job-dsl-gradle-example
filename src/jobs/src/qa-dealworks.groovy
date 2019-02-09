@@ -53,7 +53,7 @@ pipeline {
 
 //                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
                             sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json -o cucumber.json -f html -o index.html -f json_pretty -o prettycucumber.json -f junit -o junit --retry 1\" "
-                            saucePublisher()
+//                            saucePublisher()
 //                            sh "ruby ./parse_console_log.rb"
 //                            sh "cat FailedTCDeatils.html"
                         }
@@ -62,7 +62,7 @@ pipeline {
             }
             post {
                 always {
-                    junit 'junit/**'
+//                    junit 'junit/**'
 //                    step([$class: 'SauceOnDemandTestPublisher'])
                     script {
                         sh  'ls'
@@ -77,13 +77,13 @@ pipeline {
 //                        xunit testDataPublishers: tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
 //                        xunit([JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)])
 //                          step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher', jobVisibility: 'public']], testResults: 'junit/*.xml'])
-//                        saucePublisher()
+                        saucePublisher()
 //                        cucumber 'cucumber.json'
                         sh 'cat cucumber.json'
                         cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
 
-                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'QA'])
+//                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'QA'])
                         sh 'printenv'
                     }
 
