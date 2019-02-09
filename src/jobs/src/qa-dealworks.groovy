@@ -59,7 +59,7 @@ pipeline {
                         sh  'ls'
 //                        saucePublisher()
                         step([$class: 'JUnitResultArchiver', testResults: 'junit/*.xml'])
-                        cucumber 'cucumber.json'
+                        cucumber 'prettycucumber.json'
                         sh 'cat cucumber.json'
 //                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
