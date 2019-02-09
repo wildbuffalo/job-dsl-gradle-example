@@ -5,7 +5,7 @@ pipeline {
     options {
         disableConcurrentBuilds()
         skipDefaultCheckout true
-        sauce('mrll-sauce')
+        sauce('saucelabs')
 //        sauceconnect(options: '', sauceConnectPath: '', verboseLogging: true)
         sauceconnect(options: '', sauceConnectPath: '', useLatestSauceConnect: true, useGeneratedTunnelIdentifier: false ,verboseLogging: true)
     }
