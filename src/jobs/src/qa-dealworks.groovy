@@ -57,9 +57,9 @@ pipeline {
                 always {
                     script {
                         sh  'ls'
-//                        saucePublisher()
+                        saucePublisher()
                         step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher', jobVisibility: 'public']], testResults: 'junit/*.xml'])
-                        cucumber '*.json'
+                        cucumber 'cucumber.json'
                         sh 'cat cucumber.json'
 //                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
