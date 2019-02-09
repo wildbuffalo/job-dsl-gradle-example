@@ -66,7 +66,6 @@ pipeline {
                                       [$class: 'FailedThreshold', failureThreshold: '10']],
                               tools: [[$class: 'JUnitType', pattern: 'junit/**']]])
 
-                        saucePublisher()
 //                        step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher', jobVisibility: 'public']], testResults: 'junit/*.xml'])
                         saucePublisher()
                         cucumber 'cucumber.json'
