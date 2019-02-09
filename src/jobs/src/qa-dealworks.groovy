@@ -62,8 +62,8 @@ pipeline {
             }
             post {
                 always {
-//                    junit 'junit/**'
-//                    step([$class: 'SauceOnDemandTestPublisher'])
+                    saucePublisher()
+
                     script {
                         sh  'ls'
 //                        step([$class: 'XUnitBuilder',
@@ -78,7 +78,6 @@ pipeline {
 //                        xunit testDataPublishers: tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
 //                        xunit([JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)])
 //                          step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], testResults: 'junit/*.xml'])
-//                        saucePublisher()
 //                        cucumber 'cucumber.json'
                         sh 'cat cucumber.json'
 //                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
@@ -87,7 +86,7 @@ pipeline {
 //                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'QA'])
                         sh 'printenv'
                     }
-                    xunit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
+//                    xunit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
 
                 }
 //                success {
