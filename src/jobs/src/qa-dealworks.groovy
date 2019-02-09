@@ -7,7 +7,7 @@ pipeline {
         skipDefaultCheckout true
         sauce('saucelabs')
 //        sauceconnect(options: '', sauceConnectPath: '', verboseLogging: true)
-//        sauceconnect(options: '', sauceConnectPath: '', useLatestSauceConnect: true, useGeneratedTunnelIdentifier: true ,verboseLogging: true)
+        sauceconnect(options: '', sauceConnectPath: '', useLatestSauceConnect: true, useGeneratedTunnelIdentifier: false ,verboseLogging: true)
     }
     post {
         cleanup {
@@ -58,7 +58,7 @@ pipeline {
                     script {
                         sh  'ls'
 //                        saucePublisher()
-                        step([$class: 'JUnitResultArchiver', testResults: 'junit/*.xml'])
+                        step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher', jobVisibility: 'public']], testResults: 'junit/*.xml'])
                         cucumber '*.json'
                         sh 'cat cucumber.json'
 //                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
