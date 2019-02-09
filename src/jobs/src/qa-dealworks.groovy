@@ -57,17 +57,17 @@ pipeline {
                 always {
                     script {
                         sh  'ls'
-                        step([$class: 'XUnitBuilder',
-                              thresholds: [
-                                      [$class: 'SkippedThreshold', failureThreshold: '0'],
-                                      // Allow for a significant number of failures
-                                      // Keeping this threshold so that overwhelming failures are guaranteed
-                                      //     to still fail the build
-                                      [$class: 'FailedThreshold', failureThreshold: '10']],
-                              tools: [[$class: 'JUnitType', pattern: 'junit/**']]])
-
+//                        step([$class: 'XUnitBuilder',
+//                              thresholds: [
+//                                      [$class: 'SkippedThreshold', failureThreshold: '0'],
+//                                      // Allow for a significant number of failures
+//                                      // Keeping this threshold so that overwhelming failures are guaranteed
+//                                      //     to still fail the build
+//                                      [$class: 'FailedThreshold', failureThreshold: '10']],
+//                              tools: [[$class: 'JUnitType', pattern: 'junit/**']]])
+                        xunit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
 //                        step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher', jobVisibility: 'public']], testResults: 'junit/*.xml'])
-                        saucePublisher()
+//                        saucePublisher()
                         cucumber 'cucumber.json'
                         sh 'cat cucumber.json'
 //                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
