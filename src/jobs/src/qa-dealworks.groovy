@@ -65,10 +65,11 @@ pipeline {
 //                                      //     to still fail the build
 //                                      [$class: 'FailedThreshold', failureThreshold: '10']],
 //                              tools: [[$class: 'JUnitType', pattern: 'junit/**']]])
-                        xunit testDataPublishers: tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
-//                        step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher', jobVisibility: 'public']], testResults: 'junit/*.xml'])
+//                        xunit testDataPublishers: tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
+                        xunit([JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)])
+//                          step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher', jobVisibility: 'public']], testResults: 'junit/*.xml'])
 //                        saucePublisher()
-                        cucumber 'cucumber.json'
+//                        cucumber 'cucumber.json'
                         sh 'cat cucumber.json'
 //                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
