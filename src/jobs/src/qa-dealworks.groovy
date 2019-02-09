@@ -58,13 +58,13 @@ pipeline {
                     script {
                         sh  'ls'
 //                        saucePublisher()
-                        step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher', jobVisibility: 'public']], testResults: 'junit/*.xml'])
+                        step([$class: 'JUnitResultArchiver', testResults: 'junit/*.xml'])
                         cucumber 'cucumber.json'
                         sh 'cat cucumber.json'
 //                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
 
-                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'QA'])
+                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'QA'])
                         sh 'printenv'
                     }
 
