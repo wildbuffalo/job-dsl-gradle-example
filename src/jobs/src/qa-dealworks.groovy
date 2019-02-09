@@ -4,8 +4,8 @@ pipeline {
     agent any
     environment {
         SAUCE = credentials('saucelabs')
-        SAUCE_USERNAME = $SAUCE_USR
-        SAUCE_ACCESS_KEY = $SAUCE_PSW
+        SAUCE_USERNAME = "$SAUCE_USR"
+        SAUCE_ACCESS_KEY = "$SAUCE_PSW"
     }
 
     options {
