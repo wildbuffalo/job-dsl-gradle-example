@@ -47,8 +47,8 @@ pipeline {
 //                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
                             sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f pretty -f json --out cucumber.json --retry 1\" | tee test-output.log"
                             saucePublisher()
-                            sh "ruby ./parse_console_log.rb"
-                            sh "cat FailedTCDeatils.html"
+//                            sh "ruby ./parse_console_log.rb"
+//                            sh "cat FailedTCDeatils.html"
                         }
                     }
                 }
@@ -58,11 +58,12 @@ pipeline {
                     script {
                         sh  'ls'
 //                        saucePublisher()
+                        cucumber 'cucumber.json'
                         sh 'cat cucumber.json'
                         cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
 //                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
 
-                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'FailedTCDeatils.html', reportName: 'HTML Report', reportTitles: 'QA'])
+//                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'FailedTCDeatils.html', reportName: 'HTML Report', reportTitles: 'QA'])
                         sh 'printenv'
                     }
 
