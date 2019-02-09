@@ -2,6 +2,12 @@ package src
 @Library('ds1-marketing-jenkins-library@master') _
 pipeline {
     agent any
+    environment {
+        SAUCE = credentials('saucelabs')
+        SAUCE_USERNAME = $SAUCE_USR
+        SAUCE_ACCESS_KEY = $SAUCE_PSW
+    }
+
     options {
         disableConcurrentBuilds()
         skipDefaultCheckout true
@@ -44,6 +50,7 @@ pipeline {
                         tools_image.inside() {
                             sh "cd /home/jenkins/app/ &&\
                                         ls"
+
 //                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
                             sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json -o cucumber.json -f html -o index.html -f json_pretty -o prettycucumber.json -f junit -o junit --retry 1\" "
 //                            saucePublisher()
