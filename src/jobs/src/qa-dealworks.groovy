@@ -69,13 +69,13 @@ pipeline {
                     }
                 }
                 success {
-                    slackSend color: "good", channel: 'ds1-marketing-qa',message: "Job: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was successful"
+                    slackSend channel: '#ds1-marketing-qa',color: "good", message: "Job: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was successful"
                 }
                 unstable {
-                    slackSend color: "danger", channel: 'ds1-marketing-qa',message: "Job: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was unstable"
+                    slackSend channel: '#ds1-marketing-qa',color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was unstable"
                 }
                 failure {
-                    slackSend color: "danger", channel: 'ds1-marketing-qa',message: "Job: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was failed"
+                    slackSend channel: '#ds1-marketing-qa',color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was failed"
                 }
             }
         }
