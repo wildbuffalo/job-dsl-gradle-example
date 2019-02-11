@@ -76,9 +76,10 @@ pipeline {
 //
 //                    saucePublisher()
 
-                    junit 'reports/**'
-
-                    step([$class: 'SauceOnDemandTestPublisher'])
+//                    junit 'reports/**'
+//
+//                    step([$class: 'SauceOnDemandTestPublisher'])
+                    junit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], testResults: 'junit/*.xml'
                     script {
                         sh  'ls'
 //                        step([$class: 'XUnitBuilder',
