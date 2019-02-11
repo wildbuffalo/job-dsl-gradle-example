@@ -12,13 +12,9 @@ pipeline {
         disableConcurrentBuilds()
         skipDefaultCheckout true
         sauce('saucelabs')
-//        sauceconnect(options: '', sauceConnectPath: '', verboseLogging: true)
         sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true)
     }
     post {
-//        always {
-//            saucePublisher()
-//        }
         cleanup {
             cleanWs()
             dir("${env.WORKSPACE}@tmp") {
@@ -53,12 +49,7 @@ pipeline {
                         tools_image.inside() {
                             sh "cd /home/jenkins/app/ &&\
                                         ls"
-
-//                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json --out cucumber.json --retry 1\" "
-                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json -o cucumber.json -f html -o index.html -f json_pretty -o prettycucumber.json -f junit -o junit -f pretty \" "
-//                            saucePublisher()
-//                            sh "ruby ./parse_console_log.rb"
-//                            sh "cat FailedTCDeatils.html"
+                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json -o cucumber.json -f html -o index.html -f json_pretty -o prettycucumber.json -f junit -o junit -f pretty --retry 1 \" "
                         }
                     }
                 }
@@ -107,13 +98,13 @@ pipeline {
                 }
 //                success {
 //
-//                    slackSend color: "good", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was successful"
+//                    slackSend color: "good", message: "Job: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was successful"
 //                }
 //                unstable {
-//                    slackSend color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was unstable"
+//                    slackSend color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was unstable"
 //                }
 //                failure {
-//                    slackSend color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was failed"
+//                    slackSend color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was failed"
 //                }
             }
         }
