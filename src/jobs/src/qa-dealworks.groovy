@@ -13,7 +13,7 @@ pipeline {
         skipDefaultCheckout true
         sauce('saucelabs')
 //        sauceconnect(options: '', sauceConnectPath: '', verboseLogging: true)
-        sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: false ,verboseLogging: true)
+        sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true)
     }
     post {
         always {
