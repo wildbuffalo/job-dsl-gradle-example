@@ -65,16 +65,16 @@ pipeline {
             }
             post {
                 always {
-//                    step([$class: 'XUnitBuilder',
-//                          thresholds: [
-//                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
-//                                  // Allow for a significant number of failures
-//                                  // Keeping this threshold so that overwhelming failures are guaranteed
-//                                  //     to still fail the build
-//                                  [$class: 'FailedThreshold', failureThreshold: '10']],
-//                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
-//
-//                    saucePublisher()
+                    step([$class: 'XUnitBuilder',
+                          thresholds: [
+                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
+                                  // Allow for a significant number of failures
+                                  // Keeping this threshold so that overwhelming failures are guaranteed
+                                  //     to still fail the build
+                                  [$class: 'FailedThreshold', failureThreshold: '10']],
+                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
+
+                    saucePublisher()
                     script {
                         sh  'ls'
 //                        step([$class: 'XUnitBuilder',
@@ -85,7 +85,7 @@ pipeline {
 //                                      //     to still fail the build
 //                                      [$class: 'FailedThreshold', failureThreshold: '10']],
 //                              tools: [[$class: 'JUnitType', pattern: 'junit/**']]])
-                        xunit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
+//                        xunit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
 //                        xunit testDataPublishers: tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
 //                        xunit([JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)])
 //                          step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], testResults: 'junit/*.xml'])
