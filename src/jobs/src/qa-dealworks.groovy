@@ -63,46 +63,46 @@ pipeline {
                     }
                 }
             }
-//            post {
-//                always {
+            post {
+                always {
 //                    saucePublisher()
+
+                    script {
+                        sh  'ls'
+//                        step([$class: 'XUnitBuilder',
+//                              thresholds: [
+//                                      [$class: 'SkippedThreshold', failureThreshold: '0'],
+//                                      // Allow for a significant number of failures
+//                                      // Keeping this threshold so that overwhelming failures are guaranteed
+//                                      //     to still fail the build
+//                                      [$class: 'FailedThreshold', failureThreshold: '10']],
+//                              tools: [[$class: 'JUnitType', pattern: 'junit/**']]])
+                        xunit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
+//                        xunit testDataPublishers: tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
+//                        xunit([JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)])
+//                          step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], testResults: 'junit/*.xml'])
+//                        cucumber 'cucumber.json'
+                        sh 'cat cucumber.json'
+//                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
+//                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
+
+//                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'QA'])
+                        sh 'printenv'
+                    }
+//                    xunit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
+
+                }
+//                success {
 //
-//                    script {
-//                        sh  'ls'
-////                        step([$class: 'XUnitBuilder',
-////                              thresholds: [
-////                                      [$class: 'SkippedThreshold', failureThreshold: '0'],
-////                                      // Allow for a significant number of failures
-////                                      // Keeping this threshold so that overwhelming failures are guaranteed
-////                                      //     to still fail the build
-////                                      [$class: 'FailedThreshold', failureThreshold: '10']],
-////                              tools: [[$class: 'JUnitType', pattern: 'junit/**']]])
-////                        xunit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
-////                        xunit testDataPublishers: tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
-////                        xunit([JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)])
-////                          step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], testResults: 'junit/*.xml'])
-////                        cucumber 'cucumber.json'
-//                        sh 'cat cucumber.json'
-////                        cucumber fileIncludePattern: 'cucumber.json', sortingMethod: 'ALPHABETICAL'
-////                        cucumberSlackSend channel: 'alrt-ds1-marketing', json: 'cucumber.json'
-//
-////                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'QA'])
-//                        sh 'printenv'
-//                    }
-////                    xunit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
-//
+//                    slackSend color: "good", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was successful"
 //                }
-////                success {
-////
-////                    slackSend color: "good", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was successful"
-////                }
-////                unstable {
-////                    slackSend color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was unstable"
-////                }
-////                failure {
-////                    slackSend color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was failed"
-////                }
-//            }
+//                unstable {
+//                    slackSend color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was unstable"
+//                }
+//                failure {
+//                    slackSend color: "danger", message: "Job: <${env.RUN_DISPLAY_URL}/cucumber-html-reports|${env.JOB_NAME}> with build number ${env.BUILD_NUMBER} was failed"
+//                }
+            }
         }
     }
 }
