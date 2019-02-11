@@ -65,16 +65,20 @@ pipeline {
             }
             post {
                 always {
-                    step([$class: 'XUnitBuilder',
-                          thresholds: [
-                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
-                                  // Allow for a significant number of failures
-                                  // Keeping this threshold so that overwhelming failures are guaranteed
-                                  //     to still fail the build
-                                  [$class: 'FailedThreshold', failureThreshold: '10']],
-                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
+//                    step([$class: 'XUnitBuilder',
+//                          thresholds: [
+//                                  [$class: 'SkippedThreshold', failureThreshold: '0'],
+//                                  // Allow for a significant number of failures
+//                                  // Keeping this threshold so that overwhelming failures are guaranteed
+//                                  //     to still fail the build
+//                                  [$class: 'FailedThreshold', failureThreshold: '10']],
+//                          tools: [[$class: 'JUnitType', pattern: 'reports/**']]])
+//
+//                    saucePublisher()
 
-                    saucePublisher()
+                    junit 'reports/**'
+
+                    step([$class: 'SauceOnDemandTestPublisher'])
                     script {
                         sh  'ls'
 //                        step([$class: 'XUnitBuilder',
