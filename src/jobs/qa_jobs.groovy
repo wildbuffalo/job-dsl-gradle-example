@@ -1,11 +1,10 @@
 String basePath = 'QA'
-//String repo = 'sheehan/gradle-example'
 
 folder(basePath) {
     description 'QA jobs'
 }
 
-job("$basePath/QA-acgg") {
+job("$basePath/QA-test") {
     concurrentBuild(true)
     logRotator(-1, 1)
     scm {

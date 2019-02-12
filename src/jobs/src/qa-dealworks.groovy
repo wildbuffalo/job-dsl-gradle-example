@@ -2,16 +2,10 @@ package src
 @Library('ds1-marketing-jenkins-library@master') _
 pipeline {
     agent any
-    environment {
-        SAUCE = credentials('saucelabs')
-        SAUCE_USERNAME = "$SAUCE_USR"
-        SAUCE_ACCESS_KEY = "$SAUCE_PSW"
-    }
     options {
         disableConcurrentBuilds()
         skipDefaultCheckout true
         sauce('saucelabs')
-//        sauceconnect(options: '', sauceConnectPath: '', useGeneratedTunnelIdentifier: true, useLatestSauceConnect: true, verboseLogging: true)
     }
     post {
         cleanup {
@@ -38,16 +32,11 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'printenv'
-                    sh 'pwd'
-                    sh 'ls'
                     getDockerfile()
                     docker.withRegistry('https://merrillcorp-dealworks.jfrog.io', 'mrll-artifactory') {
                         def dockerfile = './qa.Dockerfile'
                         tools_image = docker.build("dealworks-app/qa:latest", "--pull --rm -f ${dockerfile} .")
                         tools_image.inside() {
-                            sh "cd /home/jenkins/app/ &&\
-                                        ls"
                             sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json -o cucumber.json -f html -o index.html -f json_pretty -o prettycucumber.json -f junit -o junit -f pretty --retry 1 \" "
                         }
                     }
