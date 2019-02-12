@@ -7,7 +7,6 @@ pipeline {
         SAUCE_USERNAME = "$SAUCE_USR"
         SAUCE_ACCESS_KEY = "$SAUCE_PSW"
     }
-
     options {
         disableConcurrentBuilds()
         skipDefaultCheckout true
