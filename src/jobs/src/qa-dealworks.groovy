@@ -37,9 +37,11 @@ pipeline {
                         def dockerfile = './qa.Dockerfile'
                         tools_image = docker.build("dealworks-app/qa:latest", "--pull --rm -f ${dockerfile} .")
                         tools_image.inside() {
-                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json -o cucumber.json -f html -o index.html -f json_pretty -o prettycucumber.json -f junit -o junit -f pretty --retry 1 \"  &&\
-                                ruby ./generateReport.rb "
+                            sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json -o cucumber.json -f html -o index.html -f json_pretty -o prettycucumber.json -f junit -o junit -f pretty --retry 1 \""
+                            sh "ruby ./generateReport.rb"
                             sh 'cat testResults.json'
+                            def props = readJSON file: 'testResults.json'
+                            sh "$props.report.totalScenarios"
                         }
                     }
                 }
