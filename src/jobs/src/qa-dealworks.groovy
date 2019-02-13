@@ -72,7 +72,7 @@ def getDockerfile() {
 writeFile file: 'qa.Dockerfile', text: '''FROM ruby:alpine3.8
 # Create a group and user
 # RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
-RUN addgroup -g 1000 -S jenkins && 
+RUN addgroup -g 1000 -S jenkins &&\
     adduser -u 1000 -S jenkins -G jenkins
 RUN apk add --no-cache make gcc g++ vim
 # throw errors if Gemfile has been modified since Gemfile.lock
