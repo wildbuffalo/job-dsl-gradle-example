@@ -52,8 +52,6 @@ pipeline {
                             sh "bundle exec parallel_cucumber features/ -n $params.threads -o \"-t @$params.tag env=$params.env sys=$params.system jobExecutionPlatform=jenkins -f json -o cucumber.json -f html -o index.html -f json_pretty -o prettycucumber.json -f junit -o junit -f pretty --retry 1 \""
                             sh "ruby ./generateReport.rb"
                             sh 'cat testResults.json'
-                            def props = readJSON file: 'testResults.json'
-
                         }
                     }
                 }
@@ -82,8 +80,9 @@ pipeline {
         }
     }
 }
+
 def getDockerfile() {
-writeFile file: 'qa.Dockerfile', text: '''FROM ruby:alpine3.8
+    writeFile file: 'qa.Dockerfile', text: '''FROM ruby:alpine3.8
 # Create a group and user
 # RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 RUN addgroup -g 1000 -S jenkins &&\
@@ -101,44 +100,45 @@ RUN bundle install --path /home/jenkins/bundle
 COPY . .'''
 
 }
-def slackMessage(colorCode) {
-    script{
-        attachmenPayload = [[
-                                    fallback  : "${env.JOB_NAME} execution #${env.BUILD_NUMBER}",
-                                    color     : colorCode,
-                                    title     : "${env.JOB_NAME}",
-                                    title_link: "${env.RUN_DISPLAY_URL}",
-                                    text      : "",
-                                    fields    :
-                                            [
-                                                    [
-                                                            title: "Scenarios",
-                                                            value: props.report.totalScenarios,
-                                                            short: true
-                                                    ], [
-                                                            title: "Failed",
-                                                            value: props.report.totalFailed,
-                                                            short: true
 
-                                                    ], [
-                                                            title: "Success",
-                                                            value: props.report.totalSuccess,
-                                                            short: true
-                                                    ], [
-                                                            title: "Skipped",
-                                                            value: props.report.totalSkipped,
-                                                            short: true
-                                                    ], [
-                                                            title: "Undefined",
-                                                            value: props.report.totalUndefined,
-                                                            short: true
-                                                    ],[
-                                                            title: "Duration",
-                                                            value: props.report.totalDuration,
-                                                            short: true
-                                                    ]
-                                            ]
-                            ]]
-        slackSend(channel: '#jenkins_test', color: colorCode, attachments: new JsonBuilder(attachmenPayload).toPrettyString())
-    }
+def slackMessage(colorCode) {
+    def props = readJSON file: 'testResults.json'
+    attachmenPayload = [[
+                                fallback  : "${env.JOB_NAME} execution #${env.BUILD_NUMBER}",
+                                color     : colorCode,
+                                title     : "${env.JOB_NAME}",
+                                title_link: "${env.RUN_DISPLAY_URL}",
+                                text      : "",
+                                fields    :
+                                        [
+                                                [
+                                                        title: "Scenarios",
+                                                        value: props.report.totalScenarios,
+                                                        short: true
+                                                ], [
+                                                        title: "Failed",
+                                                        value: props.report.totalFailed,
+                                                        short: true
+
+                                                ], [
+                                                        title: "Success",
+                                                        value: props.report.totalSuccess,
+                                                        short: true
+                                                ], [
+                                                        title: "Skipped",
+                                                        value: props.report.totalSkipped,
+                                                        short: true
+                                                ], [
+                                                        title: "Undefined",
+                                                        value: props.report.totalUndefined,
+                                                        short: true
+                                                ], [
+                                                        title: "Duration",
+                                                        value: props.report.totalDuration,
+                                                        short: true
+                                                ]
+                                        ]
+                        ]]
+    slackSend(channel: '#ds1-marketing-qa', color: colorCode, attachments: new JsonBuilder(attachmenPayload).toPrettyString())
+
 }
