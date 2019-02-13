@@ -81,7 +81,7 @@ RUN bundle config --global frozen 1
 WORKDIR /home/jenkins/app
 
 COPY Gemfile /home/jenkins/app/
-COPY Gemfile.lock /home/jenkins/app/
+# COPY Gemfile.lock /home/jenkins/app/
 RUN bundle install --path /home/jenkins/bundle
 
 COPY . .'''
