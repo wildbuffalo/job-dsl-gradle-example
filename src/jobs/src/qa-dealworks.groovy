@@ -98,8 +98,8 @@ def slackMessage(colorCode) {
     attachmenPayload = [[
                                 fallback  : "${env.JOB_NAME} execution #${env.BUILD_NUMBER}",
                                 color     : colorCode,
-                                title     : "${env.JOB_NAME}",
-                                title_link: "${env.RUN_DISPLAY_URL}",
+                                title     : "${env.JOB_NAME} with tag ${params.tag}",
+                                title_link: "${env.BUILD_URL}",
                                 text      : "",
                                 fields    :
                                         [
