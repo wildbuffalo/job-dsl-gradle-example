@@ -54,7 +54,6 @@ pipeline {
                         sh 'cat testResults.json'
                         junit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], testResults: 'junit/*.xml'
                     }
-
 //                        xunit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
 //                        xunit testDataPublishers: tools: [JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
 //                        xunit([JUnit(deleteOutputFiles: true, failIfNotNew: true, pattern: 'junit/*.xml', skipNoTestFiles: false, stopProcessingIfError: true)])
@@ -94,7 +93,6 @@ COPY Gemfile /home/jenkins/app/
 RUN bundle install --path /home/jenkins/bundle
 
 COPY . .'''
-
 }
 
 def slackMessage(colorCode) {

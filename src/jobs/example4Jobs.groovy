@@ -11,7 +11,7 @@ folder(basePath) {
 ].each { Map config ->
 
     job("$basePath/ci-${config.repo}") {
-        description "Main job for ${config.repo}"
+        description "deployment for ${config.repo}"
 
         logRotator {
             numToKeep 5
