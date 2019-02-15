@@ -55,6 +55,7 @@ def scmPromote(){
 //            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
             dir("${config.repo}"){
                 sh 'git status'
+                sh 'git branch'
 //                sh 'git commit -m "promote to stage"'
                 sh "git push"
 //                sh "git push -f https://${GIT_USERNAME}:${GIT_PASSWORD}@${config.repo}/master"
