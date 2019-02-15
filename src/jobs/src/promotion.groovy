@@ -58,6 +58,7 @@ def scmPromote(){
             git branch: 'develop', credentialsId: 'mrll-svc-github-ssh', url: "https://github.com/wildbuffalo/${config.repo}.git"
                 sh 'git status'
                 sh 'git branch'
+                sh 'git remote -v'
 //                sh 'git commit -m "promote to stage"'
 //            sh 'git push --set-upstream origin develop'
 
