@@ -35,22 +35,25 @@ pipeline {
         }
     }
 }
-
 def scmPromote(){
     [
-            [repo: 'dwgraphql-app', email: 'me@example.com'],
-            [repo: 'dealworks-app', email: 'you@example.com'],
-            [repo: 'ds1-graphql-service'],
+//            [repo: 'dwgraphql-app', email: 'me@example.com'],
+//            [repo: 'dealworks-app', email: 'you@example.com'],
+            [repo: 'getting-started-nodejs'],
     ].each { Map config ->
         checkout([$class: 'GitSCM',
                   branches: [[name: '*/develop']],
                   doGenerateSubmoduleConfigurations: false,
                   extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${config.repo}"]],
                   submoduleCfg: [],
-                  userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: "https://github.com/MerrillCorporation/${config.repo}.git"]]
-        ])
+//                  userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: "https://github.com/MerrillCorporation/${config.repo}.git"]]
+                  userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: "https://github.com/wildbuffalo/${config.repo}.git"]]
 
-        sh 'ls'
+        ])
+        dir("${config.repo}"){
+            sh 'git push -f origin/develop:master'
+        }
+
 //    job("$basePath/ci-${config.repo}") {
 //        description "deployment for ${config.repo}"
 //
