@@ -59,7 +59,9 @@ def scmPromote(){
                 sh 'git status'
                 sh 'git branch'
 //                sh 'git commit -m "promote to stage"'
-                sh "git push"
+            sh 'git push --set-upstream origin develop'
+
+            sh "git push -f develop:master"
 //                sh "git push -f https://${GIT_USERNAME}:${GIT_PASSWORD}@${config.repo}/master"
 
             }
