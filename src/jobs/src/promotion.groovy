@@ -52,7 +52,7 @@ def scmPromote(){
 //        ])
         dir("${config.repo}"){
 
-        withCredentials([usernamePassword(credentialsId: 'github-user', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+        withCredentials([usernamePassword(credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
 //            sh("git tag -a some_tag -m 'Jenkins'")
 //            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
             git branch: 'develop', credentialsId: 'mrll-svc-github-ssh', url: "https://github.com/wildbuffalo/${config.repo}.git"
