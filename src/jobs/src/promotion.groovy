@@ -51,18 +51,18 @@ def scmPromote(){
 //
 //        ])
         dir("${config.repo}"){
-            git branch: 'develop', credentialsId: 'mrll-svc-github-ssh', url: "https://github.com/wildbuffalo/${config.repo}.git"
-//        withCredentials([usernamePassword(credentialsId: 'github-user', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+
+        withCredentials([usernamePassword(credentialsId: 'github-user', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
 //            sh("git tag -a some_tag -m 'Jenkins'")
 //            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
-
+            git branch: 'develop', credentialsId: 'mrll-svc-github-ssh', url: "https://github.com/wildbuffalo/${config.repo}.git"
                 sh 'git status'
                 sh 'git branch'
 //                sh 'git commit -m "promote to stage"'
-            sh 'git push --set-upstream origin develop'
+//            sh 'git push --set-upstream origin develop'
 
-            sh "git push -f develop:master"
-//                sh "git push -f https://${GIT_USERNAME}:${GIT_PASSWORD}@${config.repo}/master"
+//            sh "git push -f develop:master"
+                sh "git push -f https://${GIT_USERNAME}:${GIT_PASSWORD}@${config.repo}/master"
 
             }
 //        }
