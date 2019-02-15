@@ -62,7 +62,7 @@ def scmPromote(){
 //            sh 'git push --set-upstream origin develop'
 
 //            sh "git push -f develop:master"
-                sh "git push -f https://${GIT_USERNAME}:${GIT_PASSWORD}@${config.repo}/master"
+                sh "git push -f https://${GIT_USERNAME}:${GIT_PASSWORD}@${config.repo}"
 
             }
         }
