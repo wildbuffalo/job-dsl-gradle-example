@@ -38,8 +38,8 @@ pipeline {
 def scmPromote(){
     [
 //            [repo: 'dwgraphql-app', email: 'me@example.com'],
-//            [repo: 'dealworks-app', email: 'you@example.com'],
-            [repo: 'getting-started-nodejs'],
+            [repo: 'dealworks-app', email: 'you@example.com'],
+//            [repo: 'getting-started-nodejs'],
     ].each { Map config ->
 //        checkout([$class: 'GitSCM',
 //                  branches: [[name: '*/develop']],
