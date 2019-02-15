@@ -55,7 +55,7 @@ def scmPromote(){
 //            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
             dir("${config.repo}"){
                 sh 'git status'
-                sh "git push -f https://${GIT_USERNAME}:${GIT_PASSWORD}@${config.repo}/develop:master"
+                sh "git push -f https://${GIT_USERNAME}:${GIT_PASSWORD}@${config.repo} master"
             }
         }
 
