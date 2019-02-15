@@ -41,19 +41,21 @@ def scmPromote(){
 //            [repo: 'dealworks-app', email: 'you@example.com'],
             [repo: 'getting-started-nodejs'],
     ].each { Map config ->
-        checkout([$class: 'GitSCM',
-                  branches: [[name: '*/develop']],
-                  doGenerateSubmoduleConfigurations: false,
-                  extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${config.repo}"]],
-                  submoduleCfg: [],
-//                  userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: "https://github.com/MerrillCorporation/${config.repo}.git"]]
-                  userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: "https://github.com/wildbuffalo/${config.repo}.git"]]
-
-        ])
-        withCredentials([usernamePassword(credentialsId: 'github-user', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+//        checkout([$class: 'GitSCM',
+//                  branches: [[name: '*/develop']],
+//                  doGenerateSubmoduleConfigurations: false,
+//                  extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${config.repo}"]],
+//                  submoduleCfg: [],
+////                  userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: "https://github.com/MerrillCorporation/${config.repo}.git"]]
+//                  userRemoteConfigs: [[credentialsId: '6331db84-0ca0-4396-a946-afa1e804158f', url: "https://github.com/wildbuffalo/${config.repo}.git"]]
+//
+//        ])
+        dir("${config.repo}"){
+            git branch: 'develop', credentialsId: 'mrll-svc-github-ssh', url: "https://github.com/wildbuffalo/${config.repo}.git"
+//        withCredentials([usernamePassword(credentialsId: 'github-user', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
 //            sh("git tag -a some_tag -m 'Jenkins'")
 //            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
-            dir("${config.repo}"){
+
                 sh 'git status'
                 sh 'git branch'
 //                sh 'git commit -m "promote to stage"'
@@ -61,7 +63,7 @@ def scmPromote(){
 //                sh "git push -f https://${GIT_USERNAME}:${GIT_PASSWORD}@${config.repo}/master"
 
             }
-        }
+//        }
 
 //        sshagent (credentials: ['7042c0e9-08d8-480c-9cf8-0de4d185987a']) {
 //            dir("${config.repo}"){
