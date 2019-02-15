@@ -56,7 +56,7 @@ def scmPromote(){
 //            sh("git tag -a some_tag -m 'Jenkins'")
 //            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
             git branch: 'develop', credentialsId: 'mrll-svc-github-ssh', url: "https://github.com/wildbuffalo/${config.repo}.git"
-                sh "git remote add origin https://${GIT_USERNAME}:{GIT_PASSWORD}@github.com/${GIT_USERNAME}/${config.repo}.git"
+                sh "git remote add origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${config.repo}.git"
                 sh 'git status'
                 sh 'git branch'
                 sh 'git remote -v'
