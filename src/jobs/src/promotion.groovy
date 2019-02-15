@@ -65,7 +65,7 @@ def scmPromote(){
                 sh "git push -f https://${GIT_USERNAME}:${GIT_PASSWORD}@${config.repo}/master"
 
             }
-//        }
+        }
 
 //        sshagent (credentials: ['7042c0e9-08d8-480c-9cf8-0de4d185987a']) {
 //            dir("${config.repo}"){
