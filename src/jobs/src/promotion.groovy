@@ -4,7 +4,6 @@ pipeline {
     options {
         disableConcurrentBuilds()
         skipDefaultCheckout true
-        sauce('saucelabs')
     }
     post {
         cleanup {
