@@ -22,17 +22,19 @@ pipeline {
             }
         }
     }
-
     stages {
-        when {
-            changeset "*"
-        }
+
         stage('Checkout') {
             steps {
                scmPromote()
             }
         }
         stage('Build') {
+            when {
+                not{
+                    changeset "*"
+                }
+            }
             steps {
                 sh 'ls'
             }
