@@ -22,6 +22,9 @@ pipeline {
             }
         }
     }
+    when {
+        changeset "*"
+    }
     stages {
         stage('Checkout') {
             steps {
