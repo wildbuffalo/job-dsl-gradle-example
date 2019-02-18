@@ -49,7 +49,7 @@ pipeline {
                 always {
                     script{
                         tools_image.inside() {
-                            sh 'ruby ./generateReport.rb'
+                            sh 'ruby ./jsonReport.rb'
                         }
                         sh 'cat testResults.json'
                         junit testDataPublishers: [[$class: 'SauceOnDemandReportPublisher']], testResults: 'junit/*.xml'
