@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Build') {
             when {
-                not{
+                anyOf {
                     changeset "*"
                 }
             }
