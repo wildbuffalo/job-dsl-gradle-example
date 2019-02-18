@@ -28,6 +28,11 @@ pipeline {
             steps {
                scmPromote()
             }
+            when {
+                anyOf {
+                    changeset "*"
+                }
+            }
         }
         stage('Build') {
             when {
